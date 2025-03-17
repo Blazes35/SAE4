@@ -16,4 +16,4 @@ Ce dépôt contient le projet en autonomie du semestre de 2ème année, réalis�
 
 - [Loris ADAM](https://github.com/Blazes35)
 - [Aymeric Cherbonnier](https://github.com/AyScorp)
-- [Lou-Ann GRANSART]([https://github.com/mathilde2801](https://github.com/Brokuto))
+- [Lou-Ann GRANSART](https://github.com/Brokuto)
