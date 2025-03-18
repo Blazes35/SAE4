@@ -257,10 +257,9 @@
                     $serveur = "localhost";
                     $motdepasse = "root";
                     $basededonnees = "sae";
-                    $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
                     // Vérifiez la connexion
-                    if ($connexion->connect_error) {
-                        die("Erreur de connexion : " . $connexion->connect_error);
+                    if ($db->connect_error) {
+                        die("Erreur de connexion : " . $db->connect_error);
                     }
                     // Préparez la requête SQL en utilisant des requêtes préparées pour des raisons de sécurité
                     if ($_GET["categorie"]=="Tout"){
@@ -303,7 +302,7 @@
                     }
 
 
-                    $stmt = $connexion->prepare($requete);
+                    $stmt = $db->prepare($requete);
                      // "s" indique que la valeur est une chaîne de caractères
                     $stmt->execute();
                     $result = $stmt->get_result();
@@ -347,7 +346,7 @@
                         }
                     }
                     $stmt->close();
-                    $connexion->close();
+                    $db->close();
                 }
             }
 
