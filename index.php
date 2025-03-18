@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 <?php
-    require "loadenv.php";
-    loadEnv();
-    $db = dbConnect();
+//    require "loadenv.php";
+//    loadEnv();
+//    $db = dbConnect();
     require "language.php" ;
     $htmlMarque="L'Étal en Ligne";
     $htmlFrançais="Français";
@@ -27,8 +27,8 @@
         }
         $rechercheVille=isset($_GET["rechercheVille"]) ? htmlspecialchars($_GET["rechercheVille"]) : "";
         $_GET["categorie"]=isset($_GET["categorie"]) ? $_GET["categorie"] : "Tout";
-        $utilisateur=$_SESSION["Id_Uti"]? -1 : htmlspecialchars($_SESSION["Id_Uti"]);
-        $rayon=isset($_GET["rayon"]) ? 100 : $rayon=htmlspecialchars($_GET["rayon"]);
+        $utilisateur=$_SESSION["Id_Uti"]? htmlspecialchars($_SESSION["Id_Uti"]) :-1;
+        $rayon=isset($_GET["rayon"]) ? $rayon=htmlspecialchars($_GET["rayon"]) : 100;
         $tri=isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : $tri="nombreDeProduits";
         if (isset($_SESSION["language"])==false){
             $_SESSION["language"]="fr";
