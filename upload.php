@@ -1,18 +1,14 @@
 <?php
+require_once 'loadenv.php';
+loadEnv();
+
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifier si le fichier a été correctement téléchargé
     if (isset($_FILES["image"])) {
+        session_start();
         // Spécifier le chemin du dossier de destination
         $targetDir = __DIR__ . "/img_producteur/";
-        // Obtenir le nom du fichier téléchargé
-        $utilisateur = "inf2pj02";
-        $serveur = "localhost";
-        $motdepasse = "ahV4saerae";
-        $basededonnees = "inf2pj_02";
-        session_start();
-        // Connect to database
-        $bdd = new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
 
         if (isset($_SESSION["Mail_Uti"])) {
             $mailUti = $_SESSION["Mail_Uti"];
@@ -20,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mailUti = $_SESSION["Mail_Temp"];
         }
         $requete = 'SELECT PRODUCTEUR.Id_Prod FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti WHERE UTILISATEUR.Mail_Uti = :mail';
-        $queryIdProd = $bdd->prepare($requete);
+        $queryIdProd = $db->prepare($requete);
         $queryIdProd->bindParam(':mail', $mailUti, PDO::PARAM_STR);
         $queryIdProd->execute();
         $returnqueryIdProd = $queryIdProd->fetchAll(PDO::FETCH_ASSOC);
@@ -44,13 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Le déplacement du fichier a échoué. Erreur : " . error_get_last()['message'] . "<br>";
         }
-
     } else {
         echo "Veuillez sélectionner une image.<br>";
     }
-    
-      
-
 }
 
 ?>

@@ -1,5 +1,7 @@
 <?php
-
+require_once "loadenv.php";
+loadEnv();
+$db = dbConnect();
 
 // Error handling with try-catch block
 try {
@@ -12,17 +14,8 @@ try {
         $_SESSION['test_pwd'] = 5;
     }
 
-    // Database connection
-    $utilisateur = "rot";
-    $serveur = "localhost";
-    $motdepasse = "root";
-    $basededonnees = "sae";
-
-    // Connect to database
-    $bdd = new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-
     // Check if user email exists
-    $queryIdUti = $bdd->query('SELECT Id_Uti FROM UTILISATEUR WHERE UTILISATEUR.Mail_Uti=\'' . $Mail_Uti . '\'');
+    $queryIdUti = $db->query('SELECT Id_Uti FROM UTILISATEUR WHERE UTILISATEUR.Mail_Uti=\'' . $Mail_Uti . '\'');
     $returnQueryIdUti = $queryIdUti->fetchAll(PDO::FETCH_ASSOC);
 
     // Handle invalid email
@@ -35,7 +28,7 @@ try {
     $Id_Uti = $returnQueryIdUti[0]["Id_Uti"];
     // Verify password using stored procedure
     //echo('CALL verifMotDePasse(' . $Id_Uti . ', \'' . $pwd . '\');');
-    $query = $bdd->query('CALL verifMotDePasse(' . $Id_Uti . ', \'' . $pwd . '\')');
+    $query = $db->query('CALL verifMotDePasse(' . $Id_Uti . ', \'' . $pwd . '\')');
 
     $test = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -43,8 +36,7 @@ try {
     if (isset($_SESSION['test_pwd']) && $_SESSION['test_pwd'] > 1) {
         if ((isset($test[0][1]) and $test[0][1] == 1) or (isset($test[0][0]) and $test[0][0] == 1)) {
             //bon mdp
-            $bdd3 = new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-            $queryIdAdmin = $bdd3->query('SELECT Id_Uti FROM ADMINISTRATEUR WHERE ADMINISTRATEUR.Id_Uti=\'' . $Id_Uti . '\'');
+            $queryIdAdmin = $db->query('SELECT Id_Uti FROM ADMINISTRATEUR WHERE ADMINISTRATEUR.Id_Uti=\'' . $Id_Uti . '\'');
             $returnQueryIdAdmin = $queryIdUti->fetchAll(PDO::FETCH_ASSOC);
             if(($returnQueryIdAdmin)==null){
                 echo ("
