@@ -2,7 +2,9 @@
 <html lang="fr">
 <head>
 <?php
-
+    require "loadenv.php";
+    loadEnv();
+    $db = dbConnect();
     require "language.php" ;
     $htmlMarque="L'Étal en Ligne";
     $htmlFrançais="Français";
