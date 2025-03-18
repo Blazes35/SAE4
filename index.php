@@ -27,7 +27,7 @@
         }
         $rechercheVille=isset($_GET["rechercheVille"]) ? htmlspecialchars($_GET["rechercheVille"]) : "";
         $_GET["categorie"]=isset($_GET["categorie"]) ? $_GET["categorie"] : "Tout";
-        $utilisateur=$_SESSION["Id_Uti"]? htmlspecialchars($_SESSION["Id_Uti"]) :-1;
+        $utilisateur= isset($_SESSION["Id_Uti"])? htmlspecialchars($_SESSION["Id_Uti"]) :-1;
         $rayon=isset($_GET["rayon"]) ? $rayon=htmlspecialchars($_GET["rayon"]) : 100;
         $tri=isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : $tri="nombreDeProduits";
         if (isset($_SESSION["language"])==false){
