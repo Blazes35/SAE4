@@ -2,14 +2,15 @@
 <html lang="fr">
 <head>
 <?php
-    require "language.php" ; 
+    require "language.php" ;
+    $htmlMarque="L'Étal en Ligne";
     $htmlFrançais="Français";
     $htmlAnglais="English";
     $htmlEspagnol="Español";
     $htmlAllemand="Deutch";
     $htmlRusse="русский";
     $htmlChinois="中國人";
-?>
+    ?>
     <title> <?php echo $htmlMarque; ?> </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style_general.css">
@@ -54,10 +55,10 @@
 
         // récupération adresse du client
         function dbConnect(){
-            $utilisateur = "inf2pj02";
+            $utilisateur = "root";
             $serveur = "localhost";
-            $motdepasse = "ahV4saerae";
-            $basededonnees = "inf2pj_02";
+            $motdepasse = "root";
+            $basededonnees = "sae";
             // Connect to database
             return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
         }
@@ -65,6 +66,10 @@
         function latLongGps($url){
             // Configuration de la requête cURL
             $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
+            curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+            curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Permet de suivre les redirections
             // Ajout du User Agent
@@ -276,10 +281,10 @@
                 if (isset($_GET["categorie"])) {
                     $categorie = htmlspecialchars($_GET["categorie"]);
                     // Connexion à la base de données 
-                    $utilisateur = "inf2pj02";
+                    $utilisateur = "root";
                     $serveur = "localhost";
-                    $motdepasse = "ahV4saerae";
-                    $basededonnees = "inf2pj_02";
+                    $motdepasse = "root";
+                    $basededonnees = "sae";
                     $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
                     // Vérifiez la connexion
                     if ($connexion->connect_error) {
