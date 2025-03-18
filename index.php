@@ -132,8 +132,7 @@
             <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}"  value="<?php echo $rechercheVille?>" placeholder="<?php echo $htmlVille; ?>">
             <br>
             <?php
-                $mabdd=dbConnect();
-                $queryAdrUti = $mabdd->prepare(('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti= :utilisateur;'));
+                $queryAdrUti = $db->prepare(('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti= :utilisateur;'));
                 $queryAdrUti->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
                 $queryAdrUti->execute();
                 $returnQueryAdrUti = $queryAdrUti->fetchAll(PDO::FETCH_ASSOC);
