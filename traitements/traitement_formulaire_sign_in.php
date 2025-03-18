@@ -1,6 +1,5 @@
 <?php
 require "language.php";
-require "db.php";
 
 try {
     $pwd = $_POST['pwd'];
@@ -10,10 +9,8 @@ try {
         $_SESSION['test_pwd'] = 5;
     }
 
-    $bdd = dbConnect();
-
-    if ($bdd) {
-        $queryIdUti = $bdd->query('SELECT Id_Uti FROM UTILISATEUR WHERE UTILISATEUR.Mail_Uti=\'' . $Mail_Uti . '\'');
+    if ($db) {
+        $queryIdUti = $db->query('SELECT Id_Uti FROM UTILISATEUR WHERE UTILISATEUR.Mail_Uti=\'' . $Mail_Uti . '\'');
         $returnQueryIdUti = $queryIdUti->fetchAll(PDO::FETCH_ASSOC);
 
         if ($returnQueryIdUti == NULL) {
@@ -21,7 +18,7 @@ try {
             $_SESSION['erreur'] = $htmlAdresseMailInvalide;
         } else {
             $Id_Uti = $returnQueryIdUti[0]["Id_Uti"];
-            $query = $bdd->query('CALL verifMotDePasse(' . $Id_Uti . ', \'' . $pwd . '\')');
+            $query = $db->query('CALL verifMotDePasse(' . $Id_Uti . ', \'' . $pwd . '\')');
             $test = $query->fetchAll(PDO::FETCH_ASSOC);
 
             // Debugging: Check the result of the stored procedure
