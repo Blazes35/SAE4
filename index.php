@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <?php
+
     require "language.php" ;
     $htmlMarque="L'Étal en Ligne";
     $htmlFrançais="Français";
@@ -22,33 +23,11 @@
         if(!isset($_SESSION)){
             session_start();
         }
-        if (isset($_GET["rechercheVille"])==true){
-            $rechercheVille=htmlspecialchars($_GET["rechercheVille"]);
-        }
-        else{
-            $rechercheVille="";
-        }
-        if (isset($_GET["categorie"])==false){
-            $_GET["categorie"]="Tout";
-        }
-        if (isset($_SESSION["Id_Uti"])==false){
-            $utilisateur=-1;
-        }
-        else{
-            $utilisateur=htmlspecialchars($_SESSION["Id_Uti"]);
-        }
-        if (isset($_GET["rayon"])==false){
-            $rayon=100;
-        }
-        else{
-            $rayon=htmlspecialchars($_GET["rayon"]);
-        }
-        if (isset($_GET["tri"])==true){
-            $tri=htmlspecialchars($_GET["tri"]);
-        }
-        else{
-            $tri="nombreDeProduits";
-        }
+        $rechercheVille=isset($_GET["rechercheVille"]) ? htmlspecialchars($_GET["rechercheVille"]) : "";
+        $_GET["categorie"]=isset($_GET["categorie"]) ? $_GET["categorie"] : "Tout";
+        $utilisateur=$_SESSION["Id_Uti"]? -1 : htmlspecialchars($_SESSION["Id_Uti"]);
+        $rayon=isset($_GET["rayon"]) ? 100 : $rayon=htmlspecialchars($_GET["rayon"]);
+        $tri=isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : $tri="nombreDeProduits";
         if (isset($_SESSION["language"])==false){
             $_SESSION["language"]="fr";
         }
@@ -86,7 +65,7 @@
             } else {
                 // Analyser la réponse JSON
                 $data = json_decode($response);
-            
+
                 // Vérifier si la réponse a été correctement analysée
                 if (!empty($data) && is_array($data) && isset($data[0])) {
                     // Récupérer la latitude et la longitude
@@ -103,18 +82,18 @@
 
         /*---------------------------------------------------------------*/
         /*
-            Titre : Calcul la distance entre 2 points en km                                                                       
-                                                                                                                                
+            Titre : Calcul la distance entre 2 points en km
+
             URL   : https://phpsources.net/code_s.php?id=1091
-            Auteur           : sheppy1                                                                                            
-            Website auteur   : https://lejournalabrasif.fr/qwanturank-concours-seo-qwant/                                         
-            Date édition     : 05 Aout 2019                                                                                       
-            Date mise à jour : 16 Aout 2019                                                                                      
-            Rapport de la maj:                                                                                                    
-            - fonctionnement du code vérifié                                                                                    
+            Auteur           : sheppy1
+            Website auteur   : https://lejournalabrasif.fr/qwanturank-concours-seo-qwant/
+            Date édition     : 05 Aout 2019
+            Date mise à jour : 16 Aout 2019
+            Rapport de la maj:
+            - fonctionnement du code vérifié
         */
         /*---------------------------------------------------------------*/
-        
+
             function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
             {
                 $pi80 = M_PI / 180;
@@ -122,7 +101,7 @@
                 $lng1 *= $pi80;
                 $lat2 *= $pi80;
                 $lng2 *= $pi80;
-        
+
                 $r = 6372.797; // rayon moyen de la Terre en km
                 $dlat = $lat2 - $lat1;
                 $dlng = $lng2 - $lng1;
@@ -130,7 +109,7 @@
         $dlng / 2) * sin($dlng / 2);
                 $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
                 $km = $r * $c;
-            
+
                 return ($miles ? ($km * 0.621371192) : $km);
         }
     ?>
@@ -138,9 +117,9 @@
         <div class="leftColumn">
 			<img class="logo" href="index.php" src="img/logo.png">
             <div class="contenuBarre">
-                
+
             <center><strong><p><?php echo $htmlRechercherPar; ?></p></strong></center>
-			<form method="get" action="index.php"> 
+			<form method="get" action="index.php">
 			<label><?php echo $htmlParProfession?></label>
             <br>
 			<select name="categorie" id="categories">
@@ -159,7 +138,7 @@
             <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}"  value="<?php echo $rechercheVille?>" placeholder="<?php echo $htmlVille; ?>">
             <br>
             <?php
-                $mabdd=dbConnect();           
+                $mabdd=dbConnect();
                 $queryAdrUti = $mabdd->prepare(('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti= :utilisateur;'));
                 $queryAdrUti->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
                 $queryAdrUti->execute();
@@ -188,7 +167,7 @@
                 <br>
                 <br>
             <?php
-            
+
                 }
                 else{
                     $Adr_Uti_En_Cours='France';
@@ -235,7 +214,7 @@
                         }
                     ?>
                 </div>
-                
+
                 <form action="language.php" method="post" id="languageForm">
                     <select name="language" id="languagePicker" onchange="submitForm()">
                         <option value="fr" <?php if($_SESSION["language"]=="fr") echo 'selected';?>>Français</option>
@@ -261,22 +240,22 @@
                         $_POST['popup'] = $_SESSION['tempPopup'];
                         unset($_SESSION['tempPopup']);
                     }
-                    
+
                     ?>
 
 					<input type="submit" value="<?php if (!isset($_SESSION['Mail_Uti'])){/*$_SESSION = array()*/; echo($htmlSeConnecter);} else {echo ''.$_SESSION['Mail_Uti'].'';}?>" class="boutonDeConnection">
                     <input type="hidden" name="popup" value=<?php if(isset($_SESSION['Mail_Uti'])){echo '"info_perso"';}else{echo '"sign_in"';}?>>
-                
+
                 </form>
 
             </div>
-            
+
             <h1> <?php echo $htmlProducteursEnMaj?> </h1>
 
             <div class="gallery-container">
-               <?php 
-               
-               
+               <?php
+
+
                if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 if (isset($_GET["categorie"])) {
                     $categorie = htmlspecialchars($_GET["categorie"]);
@@ -349,8 +328,8 @@
                                 echo $row["Prenom_Uti"] ." ".mb_strtoupper($row["Nom_Uti"]). "<br>";
                                 echo $row["Adr_Uti"] . "<br>";
                                 echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="'.$htmlImageUtilisateur.'" style="width: 100%; height: 85%;" ><br>';
-                                echo '</a> ';  
-                            }    
+                                echo '</a> ';
+                            }
                             else{
                                 $urlProd = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($row["Adr_Uti"]);
                                 $coordonneesProd=latLongGps($urlProd);
@@ -363,8 +342,8 @@
                                     echo "Prénom : " . $row["Prenom_Uti"]. "<br>";
                                     echo "Adresse : " . $row["Adr_Uti"] . "<br>";
                                     echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="Image utilisateur" style="width: 100%; height: 85%;" ><br>';
-                                    echo '</a> ';  
-                                }    
+                                    echo '</a> ';
+                                }
                             }
                         }
                     } else {
@@ -378,7 +357,7 @@
                     $connexion->close();
                 }
             }
-               
+
                ?>
             </div>
             <br>
