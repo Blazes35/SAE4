@@ -10,10 +10,6 @@ if (isset($_POST['language'])) {
 } 
     if (isset($_SESSION["language"])) {
     switch ($_SESSION["language"]) {
-        case 'fr':
-            require "language_fr.php" ;
-            break;
-
         case 'en':
             require "language_en.php" ;
             break;
@@ -39,7 +35,6 @@ if (isset($_POST['language'])) {
         }
     }else {
         require "language_fr.php" ;
- 
     }
 
 ?>
