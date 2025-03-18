@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 <?php
-//    require "loadenv.php";
-//    loadEnv();
-//    $db = dbConnect();
+    require "loadenv.php";
+    loadEnv();
+    $db = dbConnect();
     require "language.php" ;
     $htmlMarque="L'Étal en Ligne";
     $htmlFrançais="Français";
@@ -34,15 +34,7 @@
             $_SESSION["language"]="fr";
         }
 
-        // récupération adresse du client
-        function dbConnect(){
-            $utilisateur = "root";
-            $serveur = "localhost";
-            $motdepasse = "root";
-            $basededonnees = "sae";
-            // Connect to database
-            return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-        }
+
 
         function latLongGps($url){
             // Configuration de la requête cURL
