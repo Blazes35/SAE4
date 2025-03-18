@@ -13,10 +13,10 @@ try {
     }
 
     // Database connection
-    $utilisateur = "inf2pj02";
+    $utilisateur = "rot";
     $serveur = "localhost";
-    $motdepasse = "ahV4saerae";
-    $basededonnees = "inf2pj_02";
+    $motdepasse = "root";
+    $basededonnees = "sae";
 
     // Connect to database
     $bdd = new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);

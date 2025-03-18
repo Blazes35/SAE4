@@ -14,10 +14,10 @@ $Mail_Uti = $_POST['mail'];
 $_SESSION['Mail_Temp']=$Mail_Uti;
 
 // Connexion à la base de données 
-$utilisateur = "inf2pj02";
+$utilisateur = "root";
 $serveur = "localhost";
-$motdepasse = "ahV4saerae";
-$basededonnees = "inf2pj_02";
+$motdepasse = "root";
+$basededonnees = "sae";
 $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
 
 // Récupération de la valeur maximum de Id_Uti
