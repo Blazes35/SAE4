@@ -6,8 +6,13 @@ session_start();
 
 
 if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
-    die("test");
+    var_dump($_POST);
     if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code'], $_POST['ville'], $_POST['pwd'])) {
+        die("test");
+
+
+
+
         $adr = $_POST['rue'] . ", " . $_POST['code'] . " " . mb_strtoupper($_POST['ville']);
         if ($db) {
             $update = "UPDATE UTILISATEUR SET Nom_Uti = :new_nom, Prenom_Uti = :new_prenom, Adr_Uti = :adr, Pwd_Uti = :pwd WHERE Mail_Uti = :mail_uti";
