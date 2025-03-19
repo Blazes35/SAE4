@@ -259,10 +259,9 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
             <?php
             // Replace this section - starting around line 368
             if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                die("test");
                 if (isset($_GET["categorie"])) {
                     $categorie = htmlspecialchars($_GET["categorie"]);
-
+                    die("5");
                     try {
                         // Use the existing database connection from the top of the file
                         // $db was already established earlier
@@ -292,6 +291,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                             $stmt = $db->prepare($requete);
                             $stmt->bindParam(':categorie', $categorie);
                         }
+                        die("4");
 
                         // Add city search condition if provided
                         if ($rechercheVille != "") {
@@ -309,7 +309,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                             $adressePattern = '%, _____ %' . $rechercheVille . '%';
                             $stmt->bindParam(':adresse', $adressePattern);
                         }
-
+                        die("3");
                         // Add sorting
                         $requete .= ' ORDER BY ';
 
@@ -326,7 +326,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         } else {
                             $requete .= 'ProduitCount ASC';
                         }
-
+                        die("2");
                         // Prepare the statement with the complete query
                         $stmt = $db->prepare($requete);
 
@@ -342,7 +342,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                             $adressePattern = '%, _____ %' . $rechercheVille . '%';
                             $stmt->bindParam(':adresse', $adressePattern);
                         }
-
+                        die("1");
                         // Execute the query
                         $stmt->execute();
 
