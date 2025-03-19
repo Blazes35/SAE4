@@ -11,7 +11,7 @@ if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
         if (!isset($_SESSION)) {
             session_start();
         }
-
+        die("test");
         if ($db) {
             $update = "UPDATE UTILISATEUR SET Nom_Uti = :new_nom, Prenom_Uti = :new_prenom, Adr_Uti = :adr, Pwd_Uti = :pwd WHERE Mail_Uti = :mail_uti";
 
