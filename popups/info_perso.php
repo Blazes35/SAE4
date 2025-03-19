@@ -1,7 +1,6 @@
 <?php
     require "language.php" ;
-    function parseAddress($address)
-    {
+    function parseAddress($address){
         // Trim the address
         $address = trim($address);
 
@@ -51,8 +50,8 @@
         include_once 'traitements/chargement_info_perso.php';
 //        var_dump($result!=null);
 //        die("tyest");
-        if (true) {?>
-//            $parsedAddress = parseAddress($result);
+        if (true) {
+            $parsedAddress = parseAddress($result);?>
                 <p>testsetselnfdndkjgkdrgb</p>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
