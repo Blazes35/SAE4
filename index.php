@@ -258,7 +258,8 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
         <div class="gallery-container">
             <?php
             // Replace this section - starting around line 368
-//            if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                die("test");
                 if (isset($_GET["categorie"])) {
                     $categorie = htmlspecialchars($_GET["categorie"]);
 
@@ -389,7 +390,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         echo "Erreur de base de données : " . $e->getMessage();
                     }
                 }
-//            }
+            }
             ?>
         </div>
         <br>
