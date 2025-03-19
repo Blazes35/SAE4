@@ -343,7 +343,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         // Get coordinates of current user
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
                         print("2");
-                        $coordonneesUti = latLongGps($urlUti);
+//                        $coordonneesUti = latLongGps($urlUti);
                         print("3");
                         $latitudeUti = $coordonneesUti[0];
                         print("4");
@@ -354,7 +354,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         print("6");
                         var_dump($results);
                         echo "<p>c'est la merde</p>";
-                        die("test");
+//                        die("test");
                         if (count($results) > 0) {
                             foreach ($results as $row) {
                                 if ($rayon >= 100) {
