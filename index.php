@@ -57,10 +57,10 @@ function latLongGps($url){
     } else {
         // Analyser la réponse JSON
         $data = json_decode($response);
+        die("test");
 
         // Vérifier si la réponse a été correctement analysée
         if (!empty($data) && is_array($data) && isset($data[0])) {
-            die("test");
             // Récupérer la latitude et la longitude
             $latitude = $data[0]->lat;
             $longitude = $data[0]->lon;
