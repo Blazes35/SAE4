@@ -13,6 +13,11 @@
                 'ville' => trim($matches[3])
             ];
         }
+        return [
+            'rue' => $address,
+            'code_postale' => $address,
+            'ville' => $address
+        ];
     }
 
 ?>
