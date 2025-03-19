@@ -1,16 +1,14 @@
 <?php
-// Détruisez toutes les variables de session
-if (!isset($_SESSION)) {
-    session_start();
-}
-//require "../language.php" ; 
-
+// Start the session if it hasn't been started yet
+session_start();
+session_destroy();
+// Clear all session variables
 $_SESSION = array();
-// Effacez le cookie de session
-$_SESSION['erreur'] = $htmlDeconnectionReussie;
+
+// Destroy the session cookie if it exists
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    @setcookie(
+    setcookie(
         session_name(),
         '',
         time() - 42000,
@@ -20,10 +18,11 @@ if (ini_get("session.use_cookies")) {
         $params["httponly"]
     );
 }
-if (isset($_GET["msg"])){
-    echo $_GET["msg"];
-}
-// Détruisez la session
+
+// Destroy the session
 session_destroy();
+
+// Redirect to the homepage
 header('Location: ../index.php');
+exit();
 ?>
