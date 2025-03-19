@@ -1,18 +1,19 @@
 <?php
     require "language.php" ;
-    function parseAddress($address) {
-    // Trim the address
-    $address = trim($address);
+    function parseAddress($address)
+    {
+        // Trim the address
+        $address = trim($address);
 
-    // Common pattern for French addresses: street, postal code CITY
-    if (preg_match('/^(.*?)(?:,\s*)?(\d{5})\s+(.+)$/i', $address, $matches)) {
-        return [
-            'rue' => trim($matches[1]),
-            'code_postale' => trim($matches[2]),
-            'ville' => trim($matches[3])
-        ];
+        // Common pattern for French addresses: street, postal code CITY
+        if (preg_match('/^(.*?)(?:,\s*)?(\d{5})\s+(.+)$/i', $address, $matches)) {
+            return [
+                'rue' => trim($matches[1]),
+                'code_postale' => trim($matches[2]),
+                'ville' => trim($matches[3])
+            ];
+        }
     }
-
 
 ?>
 <?php
@@ -99,5 +100,3 @@
         </div>
     </div>
 </div>
-
-<?php
