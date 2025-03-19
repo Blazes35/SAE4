@@ -290,7 +290,6 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                             $stmt = $db->prepare($requete);
                             $stmt->bindParam(':categorie', $categorie);
                         }
-                        die("4");
 
                         // Add city search condition if provided
                         if ($rechercheVille != "") {
