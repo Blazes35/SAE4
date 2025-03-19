@@ -29,10 +29,7 @@
         <div>
         <?php
         include_once 'traitements/chargement_info_perso.php';
-        var_dump($result);
-        die("test");
-        if (count($result) > 0) {
-            while ($row = $result[0]) {?>
+        if ($restult == null) {?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
                     <!--  Set default values to current user information -->
@@ -80,7 +77,6 @@
                 <a href="./addProfilPicture.php"><button><?php echo 'ajouter une photo de profil'?></button></a>
                 <?php } ?>
                 <?php
-            }
         } else {
             ?><p><?php echo $htmlAucunResultatCompte?></p><?php
         }
