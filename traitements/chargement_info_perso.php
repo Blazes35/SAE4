@@ -7,5 +7,5 @@ $requete = 'SELECT * FROM UTILISATEUR WHERE UTILISATEUR.Mail_Uti=:mail';
 $stmt = $db->prepare($requete);
 $stmt->bindParam("mail",$_SESSION['Mail_Uti']); // "s" indique que la valeur est une chaîne de caractères
 $stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
