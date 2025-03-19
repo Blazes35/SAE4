@@ -338,10 +338,9 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                             $adressePattern = '%, _____ %' . $rechercheVille . '%';
                             $stmt->bindParam(':adresse', $adressePattern);
                         }
-                        die("1");
                         // Execute the query
                         $stmt->execute();
-
+                        var_dump($stmt);
                         // Get coordinates of current user
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
                         $coordonneesUti = latLongGps($urlUti);
