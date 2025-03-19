@@ -11,8 +11,8 @@
     <link rel="stylesheet" type="text/css" href="css/popup.css">
 </head>
 <body>
-
     <?php
+    echo "<p>test</p>";
         session_start();
         $db =dbConnect();
         $utilisateur=htmlspecialchars($_SESSION["Id_Uti"]);
