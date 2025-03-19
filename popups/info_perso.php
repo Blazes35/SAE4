@@ -7,28 +7,13 @@
     // Common pattern for French addresses: street, postal code CITY
     if (preg_match('/^(.*?)(?:,\s*)?(\d{5})\s+(.+)$/i', $address, $matches)) {
         return [
-            'street' => trim($matches[1]),
-            'postal_code' => trim($matches[2]),
-            'city' => trim($matches[3])
+            'rue' => trim($matches[1]),
+            'code_postale' => trim($matches[2]),
+            'ville' => trim($matches[3])
         ];
     }
 
-    // If the pattern doesn't match, return null values
-    return [
-        'street' => '',
-        'postal_code' => '',
-        'city' => ''
-    ];
-}
-$address = "102 Av du gal de Gaulle, 94700 MAISONS ALFORT";
-$parsedAddress = parseAddress($address);
 
-// Now you can use the components:
-$street = $parsedAddress['street'];      // "102 Av du gal de Gaulle"
-$postalCode = $parsedAddress['postal_code']; // "94700"
-$city = $parsedAddress['city'];
-var_dump($parsedAddress);
-die("test");
 ?>
 <?php
         if (isset($_POST['formClicked'])){
@@ -58,8 +43,8 @@ die("test");
         <div>
         <?php
         include_once 'traitements/chargement_info_perso.php';
-        var_dump($result);
-        if ($result != null) {?>
+        if ($result != null) {
+            $parsedAddress = parseAddress($result);?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
                     <!--  Set default values to current user information -->
@@ -77,7 +62,7 @@ die("test");
                     </div>
                     <div>
                         <label for="rue"><?php echo $htmlRueDeuxPoints?></label>
-                        <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}"  title="<?php echo $htmlConditionsRue; ?>" required>
+                        <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}"  title="<?php echo $htmlConditionsRue; ?>" value="<?=$parsedAddress['rue'] ?>" required>
                     </div>
                     <div>
                             <label for="code"><?php echo $htmlCodePostDeuxPoints?></label>
