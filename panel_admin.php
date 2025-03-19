@@ -14,7 +14,7 @@
 
     <?php
         session_start();
-        $db=dbConnect();
+        echo "<p>test</p>";
         $utilisateur=htmlspecialchars($_SESSION["Id_Uti"]);
         
         $filtreCategorie=0;
