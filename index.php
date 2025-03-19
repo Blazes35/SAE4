@@ -35,93 +35,53 @@ if (isset($_SESSION["language"]) == false) {
 }
 //            die("test");
 
-function latLongGps($url)
-{
-    echo "<p>Starting latLongGps with URL: $url</p>";
-
-    // Check if cURL is installed
-    if (!function_exists('curl_init')) {
-        echo "<p>Error: cURL is not installed or enabled in PHP</p>";
-
-        // Display PHP configuration file location
-        echo "<p>PHP Configuration File: " . php_ini_loaded_file() . "</p>";
-
-        // Show loaded PHP modules
-        echo "<p>Loaded Extensions: </p><pre>";
-        print_r(get_loaded_extensions());
-        echo "</pre>";
-
-        // Show PHP version
-        echo "<p>PHP Version: " . phpversion() . "</p>";
-
-        return [0, 0];
-    }
-
+function latLongGps($url) {
     try {
         // Initialize cURL with error checking
         $ch = curl_init();
         if (!$ch) {
-            echo "<p>Failed to initialize cURL</p>";
+            error_log("Failed to initialize cURL");
             return [0, 0];
         }
-
-        echo "<p>cURL initialized successfully</p>";
 
         // Set the URL
         curl_setopt($ch, CURLOPT_URL, $url);
 
-        // Try without proxy first - comment these out to test
-        /*
+        // Configure proxy if needed - consider making these conditional
         curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
         curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
         curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
-        */
 
         // Other cURL options
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0");
-        // curl_setopt($ch, CURLOPT_REFERER, "https://proxy.univ-lemans.fr:3128");
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_USERAGENT, "LEtalEnLigne/1.0");
+        curl_setopt($ch, CURLOPT_REFERER, "http://proxy.univ-lemans.fr:3128");
 
         // Execute the request
-        echo "<p>Executing cURL request...</p>";
         $response = curl_exec($ch);
 
         // Check for errors
         if (curl_errno($ch)) {
-            echo '<p>cURL Error: ' . curl_error($ch) . '</p>';
+            error_log('Erreur cURL : ' . curl_error($ch));
             curl_close($ch);
             return [0, 0];
         }
-
-        echo "<p>cURL request successful</p>";
 
         // Process the response
         $data = json_decode($response);
-
-        if ($data === null) {
-            echo "<p>Failed to parse JSON response</p>";
-            if ($response) {
-                echo "<p>Raw response: " . htmlspecialchars(substr($response, 0, 300)) . "...</p>";
-            }
-            curl_close($ch);
-            return [0, 0];
-        }
 
         if (!empty($data) && is_array($data) && isset($data[0])) {
             $latitude = $data[0]->lat;
             $longitude = $data[0]->lon;
             curl_close($ch);
-            echo "<p>Coordinates found: $latitude, $longitude</p>";
             return [$latitude, $longitude];
         }
 
-        echo "<p>No coordinates found in response</p>";
         curl_close($ch);
         return [0, 0];
     } catch (Exception $e) {
-        echo "<p>Exception in latLongGps: " . $e->getMessage() . "</p>";
+        error_log("Exception in latLongGps: " . $e->getMessage());
         return [0, 0];
     }
 }
@@ -393,13 +353,22 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         }
                         // Execute the query
                         $stmt->execute();
+                        print("1");
                         // Get coordinates of current user
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
+                        print("2");
                         $coordonneesUti = latLongGps($urlUti);
+                        print("3");
                         $latitudeUti = $coordonneesUti[0];
+                        print("4");
                         $longitudeUti = $coordonneesUti[1];
+                        print("5");
 //                         Fetch and display results
                         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        print("6");
+                        var_dump($results);
+                        echo "<p>c'est la merde</p>";
+//                        die("test");
                         if (count($results) > 0) {
                             foreach ($results as $row) {
                                 if ($rayon >= 100) {
