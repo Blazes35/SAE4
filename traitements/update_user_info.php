@@ -1,17 +1,14 @@
 <?php
 require_once '../loadenv.php';
 loadEnv();
-$db=dbConnect();
+$db = dbConnect();
+session_start();
 
 
 if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
+    die("test");
     if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code'], $_POST['ville'], $_POST['pwd'])) {
-        $adr = $_POST['rue'] .", ". $_POST['code']. " ".mb_strtoupper($_POST['ville']);
-
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        die("test");
+        $adr = $_POST['rue'] . ", " . $_POST['code'] . " " . mb_strtoupper($_POST['ville']);
         if ($db) {
             $update = "UPDATE UTILISATEUR SET Nom_Uti = :new_nom, Prenom_Uti = :new_prenom, Adr_Uti = :adr, Pwd_Uti = :pwd WHERE Mail_Uti = :mail_uti";
 
@@ -40,7 +37,7 @@ if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
     } else {
         header('Location: ../index.php');
     }
-}else {
+} else {
     ?>
     <!DOCTYPE html>
     <html lang="fr">
