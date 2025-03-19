@@ -53,7 +53,7 @@ function latLongGps($url){
     $response = curl_exec($ch);
     // Vérifier s'il y a eu une erreur cURL
     if (curl_errno($ch)) {
-        echo 'Erreur cURL : ' . curl_error($ch);
+        die('Erreur cURL : ' . curl_error($ch));
     } else {
         // Analyser la réponse JSON
         $data = json_decode($response);
