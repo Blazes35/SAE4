@@ -323,7 +323,6 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         } else {
                             $requete .= 'ProduitCount ASC';
                         }
-                        die("2");
                         // Prepare the statement with the complete query
                         $stmt = $db->prepare($requete);
 
