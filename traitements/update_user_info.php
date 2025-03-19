@@ -7,8 +7,9 @@ session_start();
 
 if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
     var_dump($_POST);
-    if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code'], $_POST['ville'], $_POST['pwd'])) {
         die("test");
+
+    if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code'], $_POST['ville'], $_POST['pwd'])) {
 
 
 
