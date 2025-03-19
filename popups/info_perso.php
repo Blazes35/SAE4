@@ -18,9 +18,8 @@
         <div style="display:flex;justify-content:space-between;">
             <form method="post">
 				<input class="lienPopup" type="submit" value="<?php echo $htmlSeDeconnecter?>" name="deconnexion">
-                <input type="hidden" value='info_perso' name="popup">
-<!--                <input type="hidden" name="sign_in" value="">-->
-		    </form>
+                    <input type="hidden" value='info_perso' name="popup">
+                </form>
             <form method="post">
 				<input type="submit" value="" class="boutonQuitPopup">
                 <input type="hidden" name="popup" value="">
@@ -29,9 +28,10 @@
         <p class="titrePopup"><?php echo $htmlInformationsPersonelles?></p>
         <div>
         <?php
-        require 'traitements/chargement_info_perso.php';
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {?>
+        include_once 'traitements/chargement_info_perso.php';
+        dd($result);
+        if (count($result) > 0) {
+            while ($row = $result[0]) {?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
                     <!--  Set default values to current user information -->
