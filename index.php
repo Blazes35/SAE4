@@ -261,7 +261,6 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
             if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 if (isset($_GET["categorie"])) {
                     $categorie = htmlspecialchars($_GET["categorie"]);
-                    die("5");
                     try {
                         // Use the existing database connection from the top of the file
                         // $db was already established earlier
