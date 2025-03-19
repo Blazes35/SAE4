@@ -29,6 +29,8 @@
         <div>
         <?php
         include_once 'traitements/chargement_info_perso.php';
+        var_dump($result);
+        die("test");
         if ($result != null) {?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
@@ -84,3 +86,5 @@
         </div>
     </div>
 </div>
+
+<?php
