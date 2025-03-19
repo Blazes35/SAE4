@@ -1,12 +1,8 @@
 <?php
-     function dbConnect(){
-      $utilisateur = "inf2pj02";
-      $serveur = "localhost";
-      $motdepasse = "ahV4saerae";
-      $basededonnees = "inf2pj_02";
-      // Connect to database
-      return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-      }
+require_once 'loadenv.php';
+loadEnv();
+$db = dbConnect();
+
       $bdd=dbConnect();
       $Id_Commande=htmlspecialchars($_POST["deleteValeur"]);
 
