@@ -1,4 +1,5 @@
 <?php
+session_start();
     require "language.php" ;
     function parseAddress($address){
         // Trim the address
@@ -51,47 +52,46 @@
         $result = chargement_info_perso();
         $parsedAddress = parseAddress($result["Adr_Uti"]);
         if (true) {?>
-                <form class="formPopup" action='traitements/update_user_info.php' method="post">
-                    <input type="hidden" value='info_perso' name="popup">
-                    <!--  Set default values to current user information -->
-                    <div>
-                        <label for="new_nom"><?php echo $htmlNomDeuxPoints?></label>
-                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($result["Nom_Uti"]) ?>>
-                    </div>
-                    <div>
-                        <label for="new_prenom"><?php echo $htmlPrénomDeuxPoints?></label>
-                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($result["Prenom_Uti"]) ?>>
-                    </div>
-                    <div>
-                        <label><?php echo $htmlAdrPostDeuxPoints?></label>
-                        <label><?php echo ($result["Adr_Uti"])?></label>
-                    </div>
-                    <div>
-                        <label for="rue"><?php echo $htmlRueDeuxPoints?></label>
-                        <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}"  title="<?php echo $htmlConditionsRue; ?>" value="<?=$parsedAddress['rue'] ?>" required>
-                    </div>
-                    <div>
-                            <label for="code"><?php echo $htmlCodePostDeuxPoints?></label>
-                            <input class="zoneDeTextePopup" type="text" name="code" pattern="^\d{5}$" title="<?php echo $htmlConditionsCodePostal; ?>" value="<?=$parsedAddress['code_postale'] ?>"  required>
-                    </div>
-                    <div>
-                        <label for="ville"><?php echo $htmlVilleDeuxPoints?></label>
-                        <input class="zoneDeTextePopup" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsVille; ?>" value="<?=$parsedAddress['ville'] ?>" required>
-                    </div>
-                    <div>
-                        <label for="ville"> mot de passe actuel </label>
-                        <input class="zoneDeTextePopup" type="password" name="pwd" required>
-                    </div>
-                    <div>
-                        <?php
-                        if (isset($_SESSION['erreur'])) {
-                            $erreur = $_SESSION['erreur'];
-                            echo '<p class="erreur">'.$erreur.'</p>';
-                        }
-                        ?>
-                    </div>
-                    <a href="traitements/update_user_info.php"><button><?php echo $htmlModifier ?></button></a>
-                </form>
+            <form class="formPopup" action='traitements/update_user_info.php' method="post">
+                <input type="hidden" value='info_perso' name="popup">
+                <div>
+                    <label for="new_nom"><?php echo $htmlNomDeuxPoints?></label>
+                    <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value="<?php echo ($result["Nom_Uti"]) ?>">
+                </div>
+                <div>
+                    <label for="new_prenom"><?php echo $htmlPrenomDeuxPoints?></label>
+                    <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value="<?php echo ($result["Prenom_Uti"]) ?>">
+                </div>
+                <div>
+                    <label><?php echo $htmlAdrPostDeuxPoints?></label>
+                    <label><?php echo ($result["Adr_Uti"])?></label>
+                </div>
+                <div>
+                    <label for="rue"><?php echo $htmlRueDeuxPoints?></label>
+                    <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}"  title="<?php echo $htmlConditionsRue; ?>" value="<?=$parsedAddress['rue'] ?>" required>
+                </div>
+                <div>
+                    <label for="code"><?php echo $htmlCodePostDeuxPoints?></label>
+                    <input class="zoneDeTextePopup" type="text" name="code" pattern="^\d{5}$" title="<?php echo $htmlConditionsCodePostal; ?>" value="<?=$parsedAddress['code_postale'] ?>"  required>
+                </div>
+                <div>
+                    <label for="ville"><?php echo $htmlVilleDeuxPoints?></label>
+                    <input class="zoneDeTextePopup" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsVille; ?>" value="<?=$parsedAddress['ville'] ?>" required>
+                </div>
+                <div>
+                    <label for="pwd">Mot de passe actuel</label>
+                    <input class="zoneDeTextePopup" type="password" name="pwd" required>
+                </div>
+                <div>
+                    <?php
+                    if (isset($_SESSION['erreur'])) {
+                        $erreur = $_SESSION['erreur'];
+                        echo '<p class="erreur">'.$erreur.'</p>';
+                    }
+                    ?>
+                </div>
+                <button type="submit"><?php echo $htmlModifier ?></button>
+            </form>
                     <a href="traitements/del_acc.php"><button><?php echo $htmlSupprimerCompte ?></button></a>
                     <?php if ((isset($_SESSION['isProd']) and $_SESSION['isProd'])) { ?>
                         <a href="./addProfilPicture.php"><button><?php echo 'ajouter une photo de profil' ?></button></a>

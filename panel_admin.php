@@ -81,7 +81,7 @@
                                         <input type="submit" name="submit" id="submit" value="'.$htmlSupprimerCompte.'"><br>
                                         <input type="hidden" name="Id_Uti" value="'.$row["Id_Uti"].'">';
                                     echo $htmlNomDeuxPoints, $row["Nom_Uti"] . "<br>";
-                                    echo $htmlPrénomDeuxPoints, $row["Prenom_Uti"] . "<br>";
+                                    echo $htmlPrenomDeuxPoints, $row["Prenom_Uti"] . "<br>";
                                     echo $htmlMailDeuxPoints, $row["Mail_Uti"] . "<br>";
                                     echo $htmlAdresseDeuxPoints, $row["Adr_Uti"] . "<br>";
                                     echo $htmlProfessionDeuxPoints, $row["Prof_Prod"] . "<br></form>";
@@ -108,7 +108,7 @@
                                 <input type="hidden" name="Id_Uti" value="'.$row["Id_Uti"].'">';
 
                             echo $htmlNomDeuxPoints, $row["Nom_Uti"] . "<br>";
-                            echo $htmlPrénomDeuxPoints, $row["Prenom_Uti"] . "<br>";
+                            echo $htmlPrenomDeuxPoints, $row["Prenom_Uti"] . "<br>";
                             echo $htmlMailDeuxPoints, $row["Mail_Uti"] . "<br>";
                             echo $htmlAdresseDeuxPoints, $row["Adr_Uti"] . "<br></form>";
                         }

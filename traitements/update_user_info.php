@@ -5,9 +5,9 @@ $db = dbConnect();
 session_start();
 
 
+
 if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
-    var_dump($_POST);
-        die("test");
+
 
     if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code'], $_POST['ville'], $_POST['pwd'])) {
 
@@ -58,6 +58,7 @@ if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
             <p>Voulez-vous vraiment modifier vos informations ?</p>
             <input type="hidden" name="confirm_update" value="oui">
             <input type="text" name="new_nom" value="<?php echo htmlspecialchars($_POST['new_nom']); ?>">
+            <input type="text" name="new_prenom" value="<?php echo htmlspecialchars($_POST['new_prenom']); ?>">
             <input type="text" name="rue" value="<?php echo htmlspecialchars($_POST['rue']); ?>">
             <input type="text" name="code" value="<?php echo htmlspecialchars($_POST['code']); ?>">
             <input type="text" name="ville" value="<?php echo htmlspecialchars($_POST['ville']); ?>">

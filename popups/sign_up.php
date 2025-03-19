@@ -22,7 +22,7 @@ if (isset($_POST['formClicked'])){
             <input type="hidden" value='sign_up' name="popup">
         </div>
         <div>
-            <label for="prenom"><?php echo $htmlPrénomDeuxPoints; ?></label>
+            <label for="prenom"><?php echo $htmlPrenomDeuxPoints; ?></label>
             <input class="zoneDeTextePopup" type="text" name="prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsPrenomDetails; ?>" required>
         </div>
         <div>
