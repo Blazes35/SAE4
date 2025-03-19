@@ -19,6 +19,7 @@
             <form method="post">
 				<input class="lienPopup" type="submit" value="<?php echo $htmlSeDeconnecter?>" name="deconnexion">
                 <input type="hidden" value='info_perso' name="popup">
+                <input type="hidden" name="sign_in" value="">
 		    </form>
             <form method="post">
 				<input type="submit" value="" class="boutonQuitPopup">
