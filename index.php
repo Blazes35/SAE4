@@ -346,7 +346,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
             // Fetch and display results
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+            var_dump($results);
+            die("test");
             if (count($results) > 0) {
                 foreach ($results as $row) {
                     if ($rayon >= 100) {
