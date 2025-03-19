@@ -35,8 +35,7 @@ if (isset($_SESSION["language"]) == false) {
 }
 //            die("test");
 
-function latLongGps($url)
-{
+function latLongGps($url){
     // Configuration de la requête cURL
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
@@ -70,6 +69,7 @@ function latLongGps($url)
     }
     // Fermeture de la session cURL
     curl_close($ch);
+    return [0, 0];
 }
 
 
@@ -343,7 +343,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         // Get coordinates of current user
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
                         print("2");
-//                        $coordonneesUti = latLongGps($urlUti);
+                        $coordonneesUti = latLongGps($urlUti);
                         print("3");
                         $latitudeUti = $coordonneesUti[0];
                         print("4");
