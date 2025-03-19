@@ -37,7 +37,7 @@
         <div style="display:flex;justify-content:space-between;">
             <form method="post">
 				<input class="lienPopup" type="submit" value="<?php echo $htmlSeDeconnecter?>" name="deconnexion">
-                    <input type="hidden" value='info_perso' name="popup">
+                <input type="hidden" value='info_perso' name="popup">
                 </form>
             <form method="post">
 				<input type="submit" value="" class="boutonQuitPopup">
@@ -90,7 +90,7 @@
                         }
                         ?>
                     </div>
-                    <input class="boutonPopup" type="submit" name="formClicked" value="<?php echo $htmlModifier?>">
+                    <a href="traitements/update_user_info.php"><button><?php echo $htmlModifier ?></button></a>
                 </form>
                     <a href="traitements/del_acc.php"><button><?php echo $htmlSupprimerCompte ?></button></a>
                     <?php if ((isset($_SESSION['isProd']) and $_SESSION['isProd'])) { ?>
