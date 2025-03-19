@@ -1,5 +1,34 @@
 <?php
     require "language.php" ;
+    function parseAddress($address) {
+    // Trim the address
+    $address = trim($address);
+
+    // Common pattern for French addresses: street, postal code CITY
+    if (preg_match('/^(.*?)(?:,\s*)?(\d{5})\s+(.+)$/i', $address, $matches)) {
+        return [
+            'street' => trim($matches[1]),
+            'postal_code' => trim($matches[2]),
+            'city' => trim($matches[3])
+        ];
+    }
+
+    // If the pattern doesn't match, return null values
+    return [
+        'street' => '',
+        'postal_code' => '',
+        'city' => ''
+    ];
+}
+$address = "102 Av du gal de Gaulle, 94700 MAISONS ALFORT";
+$parsedAddress = parseAddress($address);
+
+// Now you can use the components:
+$street = $parsedAddress['street'];      // "102 Av du gal de Gaulle"
+$postalCode = $parsedAddress['postal_code']; // "94700"
+$city = $parsedAddress['city'];
+var_dump($parsedAddress);
+die("test");
 ?>
 <?php
         if (isset($_POST['formClicked'])){
