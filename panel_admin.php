@@ -74,7 +74,7 @@
                             $stmt->execute();
                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                            if ((count($result) > 0) AND ($_SESSION["isAdmin"]==true)) {
+                            if ((count($result) > 0)) {
                                 echo"<label>- producteurs :</label><br>";
                                 foreach ($result as $row) {
                                     echo '<form method="post" action="traitements/del_acc.php" class="squarePanelAdmin">
@@ -100,7 +100,7 @@
                     $stmt->execute();
                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    if ((count($result) > 0) AND ($_SESSION["isAdmin"]==true)) {
+                    if ((count($result) > 0)) {
                         echo"<label>".$htmlUtilisateurs."</label><br>";
                         foreach ($result as $row) {
                               echo '<form method="post" action="traitements/del_acc.php" class="squarePanelAdmin">
@@ -116,9 +116,6 @@
                     } else {
                         echo $htmlErrorDevTeam;
                     }
-                    $stmt->close();
-                    $db->close();
-               
                ?>
             <br>
             <div class="basDePage">
