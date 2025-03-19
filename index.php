@@ -255,7 +255,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
         </div>
 
         <h1> <?php echo $htmlProducteursEnMaj ?> </h1>
-
+        <?php die("test");?>
         <div class="gallery-container">
             <?php
             if ($_SERVER["REQUEST_METHOD"] == "GET") {
