@@ -35,52 +35,82 @@ if (isset($_SESSION["language"]) == false) {
 }
 //            die("test");
 
-function latLongGps($url){
-    // Configuration de la requête cURL
-    print_r("1");
-    $ch = curl_init($url);
-    var_dump($ch);
-    curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
-    print_r("3");
-    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-    print_r("4");
-    curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
-    print_r("5");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    print_r("6");
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Permet de suivre les redirections
-    // Ajout du User Agent
-    print_r("7");
-    $customUserAgent = "LEtalEnLigne/1.0"; // Remplacez par le nom et la version de votre application
-    print_r("8");
-    curl_setopt($ch, CURLOPT_USERAGENT, $customUserAgent);
-    print_r("9");
-    // Ajout du Referrer
-    $customReferrer = "https://proxy.univ-lemans.fr:3128"; // Remplacez par l'URL de votre application
-    curl_setopt($ch, CURLOPT_REFERER, $customReferrer);
-    // Exécution de la requête
-    $response = curl_exec($ch);
-    // Vérifier s'il y a eu une erreur cURL
-    if (curl_errno($ch)) {
-        echo 'Erreur cURL : ' . curl_error($ch);
-    } else {
-        // Analyser la réponse JSON
-        $data = json_decode($response);
+function latLongGps($url) {
+    echo "<p>Starting latLongGps with URL: $url</p>";
 
-        // Vérifier si la réponse a été correctement analysée
-        if (!empty($data) && is_array($data) && isset($data[0])) {
-            // Récupérer la latitude et la longitude
-            $latitude = $data[0]->lat;
-            $longitude = $data[0]->lon;
-            echo "<p>Latitude : $latitude</p>
-                <p>Longitude : $longitude</p>";
-            return [$latitude, $longitude];
-        }
+    // Check if cURL is installed
+    if (!function_exists('curl_init')) {
+        echo "<p>Error: cURL is not installed or enabled in PHP</p>";
         return [0, 0];
     }
-    // Fermeture de la session cURL
-    curl_close($ch);
-    return [0, 0];
+
+    try {
+        // Initialize cURL with error checking
+        $ch = curl_init();
+        if (!$ch) {
+            echo "<p>Failed to initialize cURL</p>";
+            return [0, 0];
+        }
+
+        echo "<p>cURL initialized successfully</p>";
+
+        // Set the URL
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        // Try without proxy first - comment these out to test
+        /*
+        curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
+        curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+        curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+        */
+
+        // Other cURL options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0");
+        // curl_setopt($ch, CURLOPT_REFERER, "https://proxy.univ-lemans.fr:3128");
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+        // Execute the request
+        echo "<p>Executing cURL request...</p>";
+        $response = curl_exec($ch);
+
+        // Check for errors
+        if (curl_errno($ch)) {
+            echo '<p>cURL Error: ' . curl_error($ch) . '</p>';
+            curl_close($ch);
+            return [0, 0];
+        }
+
+        echo "<p>cURL request successful</p>";
+
+        // Process the response
+        $data = json_decode($response);
+
+        if ($data === null) {
+            echo "<p>Failed to parse JSON response</p>";
+            if ($response) {
+                echo "<p>Raw response: " . htmlspecialchars(substr($response, 0, 300)) . "...</p>";
+            }
+            curl_close($ch);
+            return [0, 0];
+        }
+
+        if (!empty($data) && is_array($data) && isset($data[0])) {
+            $latitude = $data[0]->lat;
+            $longitude = $data[0]->lon;
+            curl_close($ch);
+            echo "<p>Coordinates found: $latitude, $longitude</p>";
+            return [$latitude, $longitude];
+        }
+
+        echo "<p>No coordinates found in response</p>";
+        curl_close($ch);
+        return [0, 0];
+    } catch (Exception $e) {
+        echo "<p>Exception in latLongGps: " . $e->getMessage() . "</p>";
+        return [0, 0];
+    }
 }
 
 
