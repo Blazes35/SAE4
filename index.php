@@ -307,7 +307,6 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                             $adressePattern = '%, _____ %' . $rechercheVille . '%';
                             $stmt->bindParam(':adresse', $adressePattern);
                         }
-                        die("3");
                         // Add sorting
                         $requete .= ' ORDER BY ';
 
