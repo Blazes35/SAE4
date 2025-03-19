@@ -273,19 +273,22 @@
 
 
                     <?php
-                        if (isset($address)) {
-                            $address = str_replace(" ", "+", $address);
+                    if (isset($address)) {
+                        $address = str_replace(" ", "+", $address);
+                        ?>
+                        <iframe class="map-frame" src="https://maps.google.com/maps?&q=<?php echo $address; ?>&output=embed"
+                                width="100%" height="100%">
+                        </iframe>
+                        <?php
+                    }
                     ?>
-                    <iframe class="map-frame" src="https://maps.google.com/maps?&q=<?php echo $address; ?>&output=embed " 
-                        width="100%" height="100%" 
-                    ></iframe>
-                    <?php } 
-
-                    if (sizeof($returnQueryGetProducts)>0 and isset($_SESSION["Id_Uti"]) and $idUti!=$_SESSION["Id_Uti"]){
+                    <?php
+                    if (sizeof($returnQueryGetProducts) > 0 && isset($_SESSION["Id_Uti"]) && $idUti != $_SESSION["Id_Uti"]) {
+                        ?>
+                        <button type="submit"><?php echo $htmlPasserCommande; ?></button>
+                        <?php
+                    }
                     ?>
-                <br>
-                <button type="submit"><?php echo $htmlPasserCommande; ?></button>
-                <?php }?>
             </form>
                 </div>
             </div>
