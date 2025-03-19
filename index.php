@@ -43,7 +43,6 @@ function latLongGps($url)
     curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
     curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Permet de suivre les redirections
     // Ajout du User Agent
     $customUserAgent = "LEtalEnLigne/1.0"; // Remplacez par le nom et la version de votre application
@@ -344,13 +343,13 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         // Get coordinates of current user
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
                         print("2");
-//                        $coordonneesUti = latLongGps($urlUti);
+                        $coordonneesUti = latLongGps($urlUti);
                         print("3");
-//                        $latitudeUti = $coordonneesUti[0];
+                        $latitudeUti = $coordonneesUti[0];
                         print("4");
-//                        $longitudeUti = $coordonneesUti[1];
+                        $longitudeUti = $coordonneesUti[1];
                         print("5");
-                        // Fetch and display results
+//                         Fetch and display results
                         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         print("6");
                         var_dump($results);
