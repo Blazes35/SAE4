@@ -14,7 +14,6 @@
 
     <?php
         session_start();
-        echo "<p>test</p>";
         $utilisateur=htmlspecialchars($_SESSION["Id_Uti"]);
         
         $filtreCategorie=0;
