@@ -52,12 +52,12 @@ function latLongGps($url){
     // Exécution de la requête
     $response = curl_exec($ch);
     // Vérifier s'il y a eu une erreur cURL
+        die("test");
     if (curl_errno($ch)) {
         echo 'Erreur cURL : ' . curl_error($ch);
     } else {
         // Analyser la réponse JSON
         $data = json_decode($response);
-        die("test");
 
         // Vérifier si la réponse a été correctement analysée
         if (!empty($data) && is_array($data) && isset($data[0])) {
