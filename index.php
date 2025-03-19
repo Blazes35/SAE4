@@ -33,7 +33,7 @@ $tri = isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : $tri = "nombreDePr
 if (isset($_SESSION["language"]) == false) {
     $_SESSION["language"] = "fr";
 }
-            die("test");
+//            die("test");
 
 function latLongGps($url)
 {
