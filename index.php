@@ -353,22 +353,13 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         }
                         // Execute the query
                         $stmt->execute();
-                        print("1");
                         // Get coordinates of current user
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
-                        print("2");
                         $coordonneesUti = latLongGps($urlUti);
-                        print("3");
                         $latitudeUti = $coordonneesUti[0];
-                        print("4");
                         $longitudeUti = $coordonneesUti[1];
-                        print("5");
 //                         Fetch and display results
                         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        print("6");
-                        var_dump($results);
-                        echo "<p>c'est la merde</p>";
-//                        die("test");
                         if (count($results) > 0) {
                             foreach ($results as $row) {
                                 if ($rayon >= 100) {
