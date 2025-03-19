@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
 <?php
-    require "language.php" ; 
+    require "language.php" ;
+    require_once "loadenv.php"
 ?>
     <title><?php echo $htmlMarque; ?></title>
     <meta charset="UTF-8">
@@ -16,16 +17,8 @@
         session_start();
         }
 
-        function dbConnect(){
-            $utilisateur = "inf2pj02";
-            $serveur = "localhost";
-            $motdepasse = "ahV4saerae";
-            $basededonnees = "inf2pj_02";
-            // Connect to database
-            return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-        }
 
-        $bdd=dbConnect();
+        $db=dbConnect();
         $utilisateur=htmlspecialchars($_SESSION["Id_Uti"]);
         
         $filtreCategorie=0;
