@@ -1,5 +1,34 @@
 <?php
     require "language.php" ;
+    function parseAddress($address) {
+    // Trim the address
+    $address = trim($address);
+
+    // Common pattern for French addresses: street, postal code CITY
+    if (preg_match('/^(.*?)(?:,\s*)?(\d{5})\s+(.+)$/i', $address, $matches)) {
+        return [
+            'street' => trim($matches[1]),
+            'postal_code' => trim($matches[2]),
+            'city' => trim($matches[3])
+        ];
+    }
+
+    // If the pattern doesn't match, return null values
+    return [
+        'street' => '',
+        'postal_code' => '',
+        'city' => ''
+    ];
+}
+$address = "102 Av du gal de Gaulle, 94700 MAISONS ALFORT";
+$parsedAddress = parseAddress($address);
+
+// Now you can use the components:
+$street = $parsedAddress['street'];      // "102 Av du gal de Gaulle"
+$postalCode = $parsedAddress['postal_code']; // "94700"
+$city = $parsedAddress['city'];
+var_dump($parsedAddress);
+die("test");
 ?>
 <?php
         if (isset($_POST['formClicked'])){
@@ -18,9 +47,8 @@
         <div style="display:flex;justify-content:space-between;">
             <form method="post">
 				<input class="lienPopup" type="submit" value="<?php echo $htmlSeDeconnecter?>" name="deconnexion">
-                <input type="hidden" value='info_perso' name="popup">
-<!--                <input type="hidden" name="sign_in" value="">-->
-		    </form>
+                    <input type="hidden" value='info_perso' name="popup">
+                </form>
             <form method="post">
 				<input type="submit" value="" class="boutonQuitPopup">
                 <input type="hidden" name="popup" value="">
@@ -29,23 +57,23 @@
         <p class="titrePopup"><?php echo $htmlInformationsPersonelles?></p>
         <div>
         <?php
-        require 'traitements/chargement_info_perso.php';
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {?>
+        include_once 'traitements/chargement_info_perso.php';
+        var_dump($result);
+        if ($result != null) {?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
                     <!--  Set default values to current user information -->
                     <div>
                         <label for="new_nom"><?php echo $htmlNomDeuxPoints?></label>
-                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($row["Nom_Uti"]) ?>>
+                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($result["Nom_Uti"]) ?>>
                     </div>
                     <div>
                         <label for="new_prenom"><?php echo $htmlPrénomDeuxPoints?></label>
-                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($row["Prenom_Uti"]) ?>>
+                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($result["Prenom_Uti"]) ?>>
                     </div>
                     <div>
                         <label><?php echo $htmlAdrPostDeuxPoints?></label>
-                        <label><?php echo ($row["Adr_Uti"])?></label>
+                        <label><?php echo ($result["Adr_Uti"])?></label>
                     </div>
                     <div>
                         <label for="rue"><?php echo $htmlRueDeuxPoints?></label>
@@ -79,7 +107,6 @@
                 <a href="./addProfilPicture.php"><button><?php echo 'ajouter une photo de profil'?></button></a>
                 <?php } ?>
                 <?php
-            }
         } else {
             ?><p><?php echo $htmlAucunResultatCompte?></p><?php
         }
@@ -87,3 +114,5 @@
         </div>
     </div>
 </div>
+
+<?php
