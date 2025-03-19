@@ -51,7 +51,6 @@
         $result = chargement_info_perso();
         $parsedAddress = parseAddress($result["Adr_Uti"]);
         if (true) {?>
-                <p>testsetselnfdndkjgkdrgb</p>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
                     <!--  Set default values to current user information -->
@@ -73,11 +72,11 @@
                     </div>
                     <div>
                             <label for="code"><?php echo $htmlCodePostDeuxPoints?></label>
-                            <input class="zoneDeTextePopup" type="text" name="code" pattern="^\d{5}$" title="<?php echo $htmlConditionsCodePostal; ?>" required>
+                            <input class="zoneDeTextePopup" type="text" name="code" pattern="^\d{5}$" title="<?php echo $htmlConditionsCodePostal; ?>" value="<?=$parsedAddress['code_postale'] ?>"  required>
                     </div>
                     <div>
                         <label for="ville"><?php echo $htmlVilleDeuxPoints?></label>
-                        <input class="zoneDeTextePopup" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsVille; ?>" required>
+                        <input class="zoneDeTextePopup" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsVille; ?>" value="<?=$parsedAddress['ville'] ?>" required>
                     </div>
                     <div>
                         <label for="ville"> mot de passe actuel </label>
