@@ -19,7 +19,6 @@ if (isset($_POST['deconnexion'])) {
 
 require_once 'loadenv.php';
 loadEnv();
-$db = dbConnect();
 
 $mail = $_SESSION['Mail_Uti'];
 $query = $db->prepare("SELECT Prenom_Uti, Nom_Uti, Mail_Uti, Adr_Uti FROM UTILISATEUR WHERE Mail_Uti = ?");
