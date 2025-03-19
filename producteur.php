@@ -12,15 +12,10 @@
 <body>
     <?php
 
-     function dbConnect(){
-        $utilisateur = "inf2pj02";
-        $serveur = "localhost";
-        $motdepasse = "ahV4saerae";
-        $basededonnees = "inf2pj_02";
-    
-        // Connect to database
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-      }
+    require_once 'loadenv.php';
+    loadEnv();
+    $db = dbConnect();
+
       if(!isset($_SESSION)){
         session_start();
         }
@@ -164,7 +159,7 @@
                     <p><center><U><?php echo $htmlProduitsProposesDeuxPoints; ?></U></center></p>
                     <div class="gallery-container">
                         <?php
-                            $bdd=dbConnect();
+                            $db=dbConnect();
                             //filtre type
                             if ($filtreType=="TOUT"){
                                 $query='SELECT Id_Produit, Id_Prod, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit FROM Produits_d_un_producteur  WHERE Id_Prod= :Id_Prod';
@@ -196,7 +191,7 @@
                             }
 
                             //preparation paramètres
-                            $queryGetProducts = $bdd->prepare(($query));
+                            $queryGetProducts = $db->prepare(($query));
                             if ($filtreType=="TOUT"){
                                 $queryGetProducts->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);                            
                             }
@@ -242,8 +237,8 @@
                 <div class="producteur">
                     <!-- partie de droite avec les infos producteur -->
                     <?php
-                        $bdd=dbConnect();
-                        $queryInfoProd = $bdd->prepare(('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= :Id_Prod ;'));
+                        $db=dbConnect();
+                        $queryInfoProd = $db->prepare(('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= :Id_Prod ;'));
                         $queryInfoProd->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
                         $queryInfoProd->execute();   
                         $returnQueryInfoProd = $queryInfoProd->fetchAll(PDO::FETCH_ASSOC);
