@@ -54,11 +54,11 @@ if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
         <form method="post" action="update_user_info.php">
             <p>Voulez-vous vraiment modifier vos informations ?</p>
             <input type="hidden" name="confirm_update" value="oui">
-            <input type="hidden" name="new_nom" value="<?php echo htmlspecialchars($_POST['new_nom']); ?>">
-            <input type="hidden" name="rue" value="<?php echo htmlspecialchars($_POST['rue']); ?>">
-            <input type="hidden" name="code" value="<?php echo htmlspecialchars($_POST['code']); ?>">
-            <input type="hidden" name="ville" value="<?php echo htmlspecialchars($_POST['ville']); ?>">
-            <input type="hidden" name="pwd" value="<?php echo htmlspecialchars($_POST['pwd']); ?>">
+            <input type="text" name="new_nom" value="<?php echo htmlspecialchars($_POST['new_nom']); ?>">
+            <input type="text" name="rue" value="<?php echo htmlspecialchars($_POST['rue']); ?>">
+            <input type="text" name="code" value="<?php echo htmlspecialchars($_POST['code']); ?>">
+            <input type="text" name="ville" value="<?php echo htmlspecialchars($_POST['ville']); ?>">
+            <input type="text" name="pwd" value="<?php echo htmlspecialchars($_POST['pwd']); ?>">
             <button type="submit" class="delete-btn">Oui, modifier mes informations</button>
         </form>
         <form method="get" action="../index.php">
