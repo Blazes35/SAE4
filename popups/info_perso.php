@@ -47,9 +47,8 @@
         <p class="titrePopup"><?php echo $htmlInformationsPersonelles?></p>
         <div>
         <?php
-        include_once 'traitements/chargement_info_perso.php';
-//        var_dump($result!=null);
-//        die("tyest");
+        require_once 'traitements/chargement_info_perso.php';
+        $result = chargement_info_perso();
         if (true) {
             $parsedAddress = parseAddress($result);?>
                 <p>testsetselnfdndkjgkdrgb</p>
