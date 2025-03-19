@@ -37,17 +37,24 @@ if (isset($_SESSION["language"]) == false) {
 
 function latLongGps($url){
     // Configuration de la requête cURL
-        die("test");
-
+    print_r("1");
     $ch = curl_init($url);
+    print_r("2");
     curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
+    print_r("3");
     curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+    print_r("4");
     curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+    print_r("5");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    print_r("6");
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Permet de suivre les redirections
     // Ajout du User Agent
+    print_r("7");
     $customUserAgent = "LEtalEnLigne/1.0"; // Remplacez par le nom et la version de votre application
+    print_r("8");
     curl_setopt($ch, CURLOPT_USERAGENT, $customUserAgent);
+    print_r("9");
     // Ajout du Referrer
     $customReferrer = "https://proxy.univ-lemans.fr:3128"; // Remplacez par l'URL de votre application
     curl_setopt($ch, CURLOPT_REFERER, $customReferrer);
