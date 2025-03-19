@@ -53,6 +53,7 @@
 //        die("tyest");
         if ($result != null) {
             $parsedAddress = parseAddress($result);?>
+                <p>testsetselnfdndkjgkdrgb</p>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
                     <!--  Set default values to current user information -->
