@@ -1,5 +1,6 @@
 <?php
-require "loadenv.php";
+require_once '../loadenv.php';
+loadEnv();
 
 if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code'], $_POST['ville'], $_POST['pwd'])) {
     $adr = $_POST['rue'] .", ". $_POST['code']. " ".mb_strtoupper($_POST['ville']);
