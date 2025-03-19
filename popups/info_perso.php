@@ -49,7 +49,7 @@
         <?php
         require_once 'traitements/chargement_info_perso.php';
         $result = chargement_info_perso();
-        $parsedAddress = parseAddress($result);
+        $parsedAddress = parseAddress($result["Adr_Uti"]);
         if (true) {?>
                 <p>testsetselnfdndkjgkdrgb</p>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
