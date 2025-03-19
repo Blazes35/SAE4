@@ -255,22 +255,20 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
         </div>
 
         <h1> <?php echo $htmlProducteursEnMaj ?> </h1>
-        <?php die("test");?>
         <div class="gallery-container">
             <?php
-            if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                // Replace this section - starting around line 368
-                if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                    if (isset($_GET["categorie"])) {
-                        $categorie = htmlspecialchars($_GET["categorie"]);
+            // Replace this section - starting around line 368
+//            if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                if (isset($_GET["categorie"])) {
+                    $categorie = htmlspecialchars($_GET["categorie"]);
 
-                        try {
-                            // Use the existing database connection from the top of the file
-                            // $db was already established earlier
+                    try {
+                        // Use the existing database connection from the top of the file
+                        // $db was already established earlier
 
-                            // Prepare the appropriate SQL query based on category
-                            if ($_GET["categorie"] == "Tout") {
-                                $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
+                        // Prepare the appropriate SQL query based on category
+                        if ($_GET["categorie"] == "Tout") {
+                            $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
                         UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) as ProduitCount
                         FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti
                         LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod=PRODUIT.Id_Prod
@@ -278,11 +276,11 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti
                         HAVING PRODUCTEUR.Prof_Prod LIKE :profession';
 
-                                $stmt = $db->prepare($requete);
-                                $profession = '%';
-                                $stmt->bindParam(':profession', $profession);
-                            } else {
-                                $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
+                            $stmt = $db->prepare($requete);
+                            $profession = '%';
+                            $stmt->bindParam(':profession', $profession);
+                        } else {
+                            $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
                         UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) as ProduitCount
                         FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti
                         LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod=PRODUIT.Id_Prod
@@ -290,48 +288,16 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti
                         HAVING PRODUCTEUR.Prof_Prod = :categorie';
 
-                                $stmt = $db->prepare($requete);
-                                $stmt->bindParam(':categorie', $categorie);
-                            }
+                            $stmt = $db->prepare($requete);
+                            $stmt->bindParam(':categorie', $categorie);
+                        }
 
-                            // Add city search condition if provided
-                            if ($rechercheVille != "") {
-                                $requete .= ' AND Adr_Uti LIKE :adresse';
-                                $stmt = $db->prepare($requete);
-
-                                // Rebind parameters as needed
-                                if ($_GET["categorie"] == "Tout") {
-                                    $profession = '%';
-                                    $stmt->bindParam(':profession', $profession);
-                                } else {
-                                    $stmt->bindParam(':categorie', $categorie);
-                                }
-
-                                $adressePattern = '%, _____ %' . $rechercheVille . '%';
-                                $stmt->bindParam(':adresse', $adressePattern);
-                            }
-
-                            // Add sorting
-                            $requete .= ' ORDER BY ';
-
-                            if ($tri === "nombreDeProduits") {
-                                $requete .= 'ProduitCount DESC';
-                            } else if ($tri === "ordreNomAlphabétique") {
-                                $requete .= 'Nom_Uti ASC';
-                            } else if ($tri === "ordreNomAntiAlphabétique") {
-                                $requete .= 'Nom_Uti DESC';
-                            } else if ($tri === "ordrePrenomAlphabétique") {
-                                $requete .= 'Prenom_Uti ASC';
-                            } else if ($tri === "ordrePrenomAntiAlphabétique") {
-                                $requete .= 'Prenom_Uti DESC';
-                            } else {
-                                $requete .= 'ProduitCount ASC';
-                            }
-
-                            // Prepare the statement with the complete query
+                        // Add city search condition if provided
+                        if ($rechercheVille != "") {
+                            $requete .= ' AND Adr_Uti LIKE :adresse';
                             $stmt = $db->prepare($requete);
 
-                            // Rebind parameters again for the final query
+                            // Rebind parameters as needed
                             if ($_GET["categorie"] == "Tout") {
                                 $profession = '%';
                                 $stmt->bindParam(':profession', $profession);
@@ -339,60 +305,91 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                                 $stmt->bindParam(':categorie', $categorie);
                             }
 
-                            if ($rechercheVille != "") {
-                                $adressePattern = '%, _____ %' . $rechercheVille . '%';
-                                $stmt->bindParam(':adresse', $adressePattern);
-                            }
+                            $adressePattern = '%, _____ %' . $rechercheVille . '%';
+                            $stmt->bindParam(':adresse', $adressePattern);
+                        }
 
-                            // Execute the query
-                            $stmt->execute();
+                        // Add sorting
+                        $requete .= ' ORDER BY ';
 
-                            // Get coordinates of current user
-                            $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
-                            $coordonneesUti = latLongGps($urlUti);
-                            $latitudeUti = $coordonneesUti[0];
-                            $longitudeUti = $coordonneesUti[1];
+                        if ($tri === "nombreDeProduits") {
+                            $requete .= 'ProduitCount DESC';
+                        } else if ($tri === "ordreNomAlphabétique") {
+                            $requete .= 'Nom_Uti ASC';
+                        } else if ($tri === "ordreNomAntiAlphabétique") {
+                            $requete .= 'Nom_Uti DESC';
+                        } else if ($tri === "ordrePrenomAlphabétique") {
+                            $requete .= 'Prenom_Uti ASC';
+                        } else if ($tri === "ordrePrenomAntiAlphabétique") {
+                            $requete .= 'Prenom_Uti DESC';
+                        } else {
+                            $requete .= 'ProduitCount ASC';
+                        }
 
-                            // Fetch and display results
-                            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            var_dump($results);
-                            die("test");
-                            if (count($results) > 0) {
-                                foreach ($results as $row) {
-                                    if ($rayon >= 100) {
+                        // Prepare the statement with the complete query
+                        $stmt = $db->prepare($requete);
+
+                        // Rebind parameters again for the final query
+                        if ($_GET["categorie"] == "Tout") {
+                            $profession = '%';
+                            $stmt->bindParam(':profession', $profession);
+                        } else {
+                            $stmt->bindParam(':categorie', $categorie);
+                        }
+
+                        if ($rechercheVille != "") {
+                            $adressePattern = '%, _____ %' . $rechercheVille . '%';
+                            $stmt->bindParam(':adresse', $adressePattern);
+                        }
+
+                        // Execute the query
+                        $stmt->execute();
+
+                        // Get coordinates of current user
+                        $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
+                        $coordonneesUti = latLongGps($urlUti);
+                        $latitudeUti = $coordonneesUti[0];
+                        $longitudeUti = $coordonneesUti[1];
+
+                        // Fetch and display results
+                        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        var_dump($results);
+                        die("test");
+                        if (count($results) > 0) {
+                            foreach ($results as $row) {
+                                if ($rayon >= 100) {
+                                    echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
+                                    echo $row["Prof_Prod"] . "<br>";
+                                    echo $row["Prenom_Uti"] . " " . mb_strtoupper($row["Nom_Uti"]) . "<br>";
+                                    echo $row["Adr_Uti"] . "<br>";
+                                    echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" ><br>';
+                                    echo '</a> ';
+                                } else {
+                                    $urlProd = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($row["Adr_Uti"]);
+                                    $coordonneesProd = latLongGps($urlProd);
+                                    $latitudeProd = $coordonneesProd[0];
+                                    $longitudeProd = $coordonneesProd[1];
+                                    $distance = distance($latitudeUti, $longitudeUti, $latitudeProd, $longitudeProd);
+
+                                    if ($distance < $rayon) {
                                         echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
-                                        echo $row["Prof_Prod"] . "<br>";
-                                        echo $row["Prenom_Uti"] . " " . mb_strtoupper($row["Nom_Uti"]) . "<br>";
-                                        echo $row["Adr_Uti"] . "<br>";
-                                        echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" ><br>';
+                                        echo "Nom : " . $row["Nom_Uti"] . "<br>";
+                                        echo "Prénom : " . $row["Prenom_Uti"] . "<br>";
+                                        echo "Adresse : " . $row["Adr_Uti"] . "<br>";
+                                        echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="Image utilisateur" style="width: 100%; height: 85%;" ><br>';
                                         echo '</a> ';
-                                    } else {
-                                        $urlProd = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($row["Adr_Uti"]);
-                                        $coordonneesProd = latLongGps($urlProd);
-                                        $latitudeProd = $coordonneesProd[0];
-                                        $longitudeProd = $coordonneesProd[1];
-                                        $distance = distance($latitudeUti, $longitudeUti, $latitudeProd, $longitudeProd);
-
-                                        if ($distance < $rayon) {
-                                            echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
-                                            echo "Nom : " . $row["Nom_Uti"] . "<br>";
-                                            echo "Prénom : " . $row["Prenom_Uti"] . "<br>";
-                                            echo "Adresse : " . $row["Adr_Uti"] . "<br>";
-                                            echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="Image utilisateur" style="width: 100%; height: 85%;" ><br>';
-                                            echo '</a> ';
-                                        }
                                     }
                                 }
-                            } else {
-                                echo $htmlAucunResultat;
                             }
-
-                        } catch (PDOException $e) {
-                            echo "Erreur de base de données : " . $e->getMessage();
+                        } else {
+                            echo $htmlAucunResultat;
                         }
+
+                    } catch (PDOException $e) {
+                        echo "Erreur de base de données : " . $e->getMessage();
                     }
                 }
-            }
+//            }
             ?>
         </div>
         <br>
