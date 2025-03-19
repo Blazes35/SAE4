@@ -37,6 +37,8 @@ if (isset($_SESSION["language"]) == false) {
 
 function latLongGps($url){
     // Configuration de la requête cURL
+        die("test");
+
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
     curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
@@ -52,7 +54,6 @@ function latLongGps($url){
     // Exécution de la requête
     $response = curl_exec($ch);
     // Vérifier s'il y a eu une erreur cURL
-        die("test");
     if (curl_errno($ch)) {
         echo 'Erreur cURL : ' . curl_error($ch);
     } else {
