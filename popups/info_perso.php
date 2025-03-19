@@ -1,7 +1,4 @@
 <?php
-namespace App\Popups;
-
-use App\Language\Language;
 require_once "language.php";
 session_start();
 
