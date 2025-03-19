@@ -44,7 +44,7 @@
         <div>
         <?php
         include_once 'traitements/chargement_info_perso.php';
-        var_dump($result);
+        var_dump($result!=null);
         die("tyest");
         if ($result != null) {
             $parsedAddress = parseAddress($result);?>
