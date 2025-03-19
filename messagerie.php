@@ -11,8 +11,11 @@
     <link rel="stylesheet" type="text/css" href="css/messagerie.css"> 
     <!-- name of the page -->
 </head>
+
 <body>
     <?php
+
+
     if(!isset($_SESSION)){
         session_start();
     }

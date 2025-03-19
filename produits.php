@@ -12,13 +12,11 @@
 <body>
 
 <?php
-     function dbConnect(){
-        $host = 'localhost';
-        $dbname = 'inf2pj_02';
-        $user = 'inf2pj02';
-        $password = 'ahV4saerae';
-        return new PDO('mysql:host='.$host.';dbname='.$dbname,$user,$password);
-      }
+
+require_once 'loadenv.php';
+loadEnv();
+$db = dbConnect();
+
       if(!isset($_SESSION)){
         session_start();
     }
