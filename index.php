@@ -350,6 +350,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         // Fetch and display results
                         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         var_dump($results);
+                        echo "<p>c'est la merde</p>";
                         die("test");
                         if (count($results) > 0) {
                             foreach ($results as $row) {
