@@ -30,22 +30,21 @@
         <?php
         include_once 'traitements/chargement_info_perso.php';
         var_dump($result);
-        die("test");
         if ($result != null) {?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
                     <!--  Set default values to current user information -->
                     <div>
                         <label for="new_nom"><?php echo $htmlNomDeuxPoints?></label>
-                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($row["Nom_Uti"]) ?>>
+                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($result["Nom_Uti"]) ?>>
                     </div>
                     <div>
                         <label for="new_prenom"><?php echo $htmlPrénomDeuxPoints?></label>
-                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($row["Prenom_Uti"]) ?>>
+                        <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value=<?php echo ($result["Prenom_Uti"]) ?>>
                     </div>
                     <div>
                         <label><?php echo $htmlAdrPostDeuxPoints?></label>
-                        <label><?php echo ($row["Adr_Uti"])?></label>
+                        <label><?php echo ($result["Adr_Uti"])?></label>
                     </div>
                     <div>
                         <label for="rue"><?php echo $htmlRueDeuxPoints?></label>
