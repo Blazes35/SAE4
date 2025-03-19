@@ -49,8 +49,8 @@
         <?php
         require_once 'traitements/chargement_info_perso.php';
         $result = chargement_info_perso();
-        if (true) {
-            $parsedAddress = parseAddress($result);?>
+        $parsedAddress = parseAddress($result);
+        if (true) {?>
                 <p>testsetselnfdndkjgkdrgb</p>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
                     <input type="hidden" value='info_perso' name="popup">
