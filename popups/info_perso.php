@@ -1,4 +1,7 @@
 <?php
+namespace App\Popups;
+use PDO;
+
 require_once "language.php";
 session_start();
 
@@ -29,7 +32,7 @@ $userInfo = $query->fetch(PDO::FETCH_ASSOC);
     <div class="contenuPopup">
         <div style="display:flex;justify-content:space-between;">
             <form method="post">
-                <input class="lienPopup" type="submit" value="<?php echo Language::$htmlSeDeconnecter ?>" name="formClicked">
+                <input class="lienPopup" type="submit" value="<?php echo $htmlSeDeconnecter ?>" name="formClicked">
                 <input type="hidden" value='info_perso' name="popup">
                 <input type="hidden" name="deconnexion">
             </form>
@@ -38,7 +41,7 @@ $userInfo = $query->fetch(PDO::FETCH_ASSOC);
                 <input type="hidden" name="popup" value="">
             </form>
         </div>
-        <p class="titrePopup"><?php echo Language::$htmlInformationsPersonelles ?></p>
+        <p class="titrePopup"><?php echo $htmlInformationsPersonelles ?></p>
         <div>
             <p><strong>Prénom:</strong> <?php echo htmlspecialchars($userInfo['Prenom_Uti']); ?></p>
             <p><strong>Nom:</strong> <?php echo htmlspecialchars($userInfo['Nom_Uti']); ?></p>
