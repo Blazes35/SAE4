@@ -35,12 +35,25 @@ if (isset($_SESSION["language"]) == false) {
 }
 //            die("test");
 
-function latLongGps($url) {
+function latLongGps($url)
+{
     echo "<p>Starting latLongGps with URL: $url</p>";
 
     // Check if cURL is installed
     if (!function_exists('curl_init')) {
         echo "<p>Error: cURL is not installed or enabled in PHP</p>";
+
+        // Display PHP configuration file location
+        echo "<p>PHP Configuration File: " . php_ini_loaded_file() . "</p>";
+
+        // Show loaded PHP modules
+        echo "<p>Loaded Extensions: </p><pre>";
+        print_r(get_loaded_extensions());
+        echo "</pre>";
+
+        // Show PHP version
+        echo "<p>PHP Version: " . phpversion() . "</p>";
+
         return [0, 0];
     }
 
