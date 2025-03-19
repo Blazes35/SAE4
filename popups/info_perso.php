@@ -29,7 +29,8 @@
         <div>
         <?php
         include_once 'traitements/chargement_info_perso.php';
-        dd($result);
+        var_dump($result);
+        die("test");
         if (count($result) > 0) {
             while ($row = $result[0]) {?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
