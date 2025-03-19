@@ -49,8 +49,8 @@
         <div>
         <?php
         include_once 'traitements/chargement_info_perso.php';
-        var_dump($result!=null);
-        die("tyest");
+//        var_dump($result!=null);
+//        die("tyest");
         if ($result != null) {
             $parsedAddress = parseAddress($result);?>
                 <form class="formPopup" action='traitements/update_user_info.php' method="post">
