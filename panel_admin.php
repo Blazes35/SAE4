@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
     <?php
-    require "language.php";
+//    require "language.php";
     require_once "loadenv.php"
     ?>
 </head>
@@ -13,7 +13,7 @@
 <?php
 echo "<p>test</p>";
 echo "1";
-$db = dbConnect();
+//$db = dbConnect();
 echo "2";
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
 echo "3";
