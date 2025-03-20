@@ -16,7 +16,7 @@ session_start();
 echo "aled";
 var_dump(isset($_SESSION["Id_Uti"]));
 var_dump($_SESSION["Id_Uti"]);
-$db = dbConnect();
+//$db = dbConnect();
 echo "aled";
 var_dump(isset($_SESSION["Id_Uti"]));
 var_dump($_SESSION["Id_Uti"]);
