@@ -12,6 +12,7 @@
 </head>
 <body>
 <?php
+session_start();
 $db = dbConnect();
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
 $filtreCategorie = 0;
