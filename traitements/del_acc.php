@@ -98,7 +98,7 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
             $Id_Produit = $returnQueryGetProduitCommande[$iterateurProduit]["Id_Produit"];
             //echo $updateProduit;
             //echo $Id_Produit;
-            $delContenu = $db->prepare(('DELETE FROM CONTENU WHERE Id_Produit=:Id_Produit;'));
+            $delContenu = $db->prepare(('UPDATE COMMANDE SET Id_Statut=2 WHERE Id_Uti= :utilisateur AND Id_Statut<>4;'));
             $delContenu->bindParam(":Id_Produit", $Id_Produit, PDO::PARAM_STR);
             $delContenu->execute();
 
