@@ -23,8 +23,8 @@ $db = dbConnect();
       $utilisateur=$_SESSION["Id_Uti"];
       htmlspecialchars($utilisateur);
 
-      $bdd=dbConnect();
-      $queryIdProd = $bdd->prepare(('SELECT Id_Prod FROM PRODUCTEUR WHERE Id_Uti= :Id_Uti ;'));
+      $db=dbConnect();
+      $queryIdProd = $db->prepare(('SELECT Id_Prod FROM PRODUCTEUR WHERE Id_Uti= :Id_Uti ;'));
       $queryIdProd->bindParam(":Id_Uti", $utilisateur, PDO::PARAM_STR);
       $queryIdProd->execute();
       $returnQueryIdProd = $queryIdProd->fetchAll(PDO::FETCH_ASSOC);
@@ -134,8 +134,8 @@ $db = dbConnect();
                     <p><center><U><?php echo $htmlMesProduitsEnStock; ?></U></center></p>
                     <div class="gallery-container">
                         <?php
-                            $bdd=dbConnect();
-                            $queryGetProducts = $bdd->prepare(('SELECT Id_Produit, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit, Nom_Unite_Stock FROM Produits_d_un_producteur WHERE Id_Prod= :Id_Prod ;'));
+                            $db=dbConnect();
+                            $queryGetProducts = $db->prepare(('SELECT Id_Produit, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit, Nom_Unite_Stock FROM Produits_d_un_producteur WHERE Id_Prod= :Id_Prod ;'));
                             $queryGetProducts->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
                             $queryGetProducts->execute();
                             $returnQueryGetProducts = $queryGetProducts->fetchAll(PDO::FETCH_ASSOC);
@@ -153,7 +153,7 @@ $db = dbConnect();
                                     $QteProduit = $returnQueryGetProducts[$i]["Qte_Produit"];
                                     $unitePrixProduit = $returnQueryGetProducts[$i]["Nom_Unite_Prix"];
                                     $Nom_Unite_Stock = $returnQueryGetProducts[$i]["Nom_Unite_Stock"];
-                                if ($QteProduit>0){
+                                if ($QteProduit>=0){
                                         echo '<style>';
                                         echo 'form { display: inline-block; margin-right: 1px; }'; // Ajustez la marge selon vos besoins
                                         echo 'button { display: inline-block; }';
