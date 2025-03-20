@@ -13,16 +13,21 @@
 <body>
 <?php
 echo "<p>test</p>";
-session_start();
+var_dump(isset($_SESSION["Id_Uti"]));
 $db = dbConnect();
+var_dump(isset($_SESSION["Id_Uti"]));
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
+var_dump(isset($_SESSION["Id_Uti"]));
 
 $filtreCategorie = 0;
+var_dump(isset($_SESSION["Id_Uti"]));
 if (isset($_POST["typeCategorie"]) == true) {
+var_dump(isset($_SESSION["Id_Uti"]));
     $filtreCategorie = htmlspecialchars($_POST["typeCategorie"]);
+var_dump(isset($_SESSION["Id_Uti"]));
 }
 var_dump(isset($_SESSION["Id_Uti"]));
-die("tester");
+
 ?>
 
 <div class="container">
