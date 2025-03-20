@@ -1,21 +1,16 @@
 <?php
-     function dbConnect(){
-      $utilisateur = "inf2pj02";
-      $serveur = "localhost";
-      $motdepasse = "ahV4saerae";
-      $basededonnees = "inf2pj_02";
-      // Connect to database
-      return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-      }
-      $bdd=dbConnect();
+require_once "../loadenv.php";
+loadEnv();
+$db=dbConnect();
+
       $Id_Produit=htmlspecialchars($_POST["deleteIdProduct"]);
 
-      $delContenu=$bdd->prepare('DELETE FROM CONTENU WHERE Id_Produit=:Id_Produit;');
+      $delContenu=$db->prepare('DELETE FROM CONTENU WHERE Id_Produit=:Id_Produit;');
       $delContenu->bindParam(":Id_Produit", $Id_Produit, PDO::PARAM_STR);
       $delContenu->execute();
 
 
-      $delProduct=$bdd->prepare('DELETE FROM PRODUIT WHERE Id_Produit=:Id_Produit;');
+      $delProduct=$db->prepare('DELETE FROM PRODUIT WHERE Id_Produit=:Id_Produit;');
       $delProduct->bindParam(":Id_Produit", $Id_Produit, PDO::PARAM_STR);
       $delProduct->execute();
 

@@ -1,13 +1,8 @@
 <?php
-    function dbConnect(){
-        $utilisateur = "inf2pj02";
-        $serveur = "localhost";
-        $motdepasse = "ahV4saerae";
-        $basededonnees = "inf2pj_02";
-        // Connect to database
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
-    $bdd=dbConnect();
+require_once "./loadenv.php";
+loadEnv();
+$db=dbConnect();
+
     //var_dump($_POST);
     $Id_Produit = htmlspecialchars($_POST["IdProductAModifier"]);
     $Nom_Produit = htmlspecialchars($_POST["nomProduit"]);
@@ -19,7 +14,7 @@
 
 
     $updateProduit = "UPDATE PRODUIT SET Nom_Produit = :Nom_Produit, Id_Type_Produit = :Categorie, Qte_Produit = :Quantite, Id_Unite_Stock = :Quantite_Unite, Prix_Produit_Unitaire = :Prix, Id_unite_Prix = :Prix_Unite WHERE Id_Produit = :Id_Produit";
-    $stmt = $bdd->prepare($updateProduit);
+    $stmt = $db->prepare($updateProduit);
     $stmt->bindParam(':Nom_Produit', $Nom_Produit);
     $stmt->bindParam(':Categorie', $Categorie);
     $stmt->bindParam(':Quantite', $Quantite);
@@ -37,10 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Spécifier le chemin du dossier de destination
         $targetDir = __DIR__ . "/img_produit/";
         // Obtenir le nom du fichier téléchargé
-        $utilisateur = "inf2pj02";
-        $serveur = "localhost";
-        $motdepasse = "ahV4saerae";
-        $basededonnees = "inf2pj_02";
+        $db=dbConnect();
         if(!isset($_SESSION)){
             session_start();
             }

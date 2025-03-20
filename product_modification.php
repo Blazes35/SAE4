@@ -14,20 +14,15 @@
         if(!isset($_SESSION)){
             session_start();
         }
-        function dbConnect(){
-            $utilisateur = "inf2pj02";
-            $serveur = "localhost";
-            $motdepasse = "ahV4saerae";
-            $basededonnees = "inf2pj_02";
-            // Connect to database
-            return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-        }
+    require_once "./loadenv.php";
+    loadEnv();
+    $db=dbConnect();
           $utilisateur=htmlspecialchars($_SESSION["Id_Uti"]);
           $Id_Produit_Update=htmlspecialchars($_POST["modifyIdProduct"]);
           $_SESSION["Id_Produit"]=$Id_Produit_Update;
           
-          $bdd=dbConnect();
-          $queryGetProducts = $bdd->prepare('SELECT * FROM PRODUIT WHERE Id_Produit = :Id_Produit_Update');
+          $db=dbConnect();
+          $queryGetProducts = $db->prepare('SELECT * FROM PRODUIT WHERE Id_Produit = :Id_Produit_Update');
           $queryGetProducts->bindParam(':Id_Produit_Update', $Id_Produit_Update, PDO::PARAM_INT);
           $queryGetProducts->execute();
           $returnQueryGetProducts = $queryGetProducts->fetchAll(PDO::FETCH_ASSOC);
@@ -276,15 +271,15 @@
                     <p><center><U><?php echo $htmlMesProduitsEnStock?></U></center></p>
                     <div class="gallery-container">
                         <?php
-                            $bdd=dbConnect();
-                            $queryIdProd = $bdd->prepare('SELECT Id_Prod FROM PRODUCTEUR WHERE Id_Uti = :utilisateur');
+                            $db=dbConnect();
+                            $queryIdProd = $db->prepare('SELECT Id_Prod FROM PRODUCTEUR WHERE Id_Uti = :utilisateur');
                             $queryIdProd->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
                             $queryIdProd->execute();
                             $returnQueryIdProd = $queryIdProd->fetchAll(PDO::FETCH_ASSOC);
                             $Id_Prod=$returnQueryIdProd[0]["Id_Prod"];
 
-                            $bdd=dbConnect();
-                            $queryGetProducts = $bdd->prepare('SELECT Id_Produit, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit, Nom_Unite_Stock FROM Produits_d_un_producteur WHERE Id_Prod = :idProd');
+                            $db=dbConnect();
+                            $queryGetProducts = $db->prepare('SELECT Id_Produit, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit, Nom_Unite_Stock FROM Produits_d_un_producteur WHERE Id_Prod = :idProd');
                             $queryGetProducts->bindParam(':idProd', $Id_Prod, PDO::PARAM_INT);
                             $queryGetProducts->execute();                            
                             $returnQueryGetProducts = $queryGetProducts->fetchAll(PDO::FETCH_ASSOC);

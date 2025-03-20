@@ -2,15 +2,11 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-function dbConnect(){
-    $host = 'localhost';
-    $dbname = 'inf2pj_02';
-    $user = 'inf2pj02';
-    $password = 'ahV4saerae';
-    return new PDO('mysql:host='.$host.';dbname='.$dbname,$user,$password);
-}
+require_once "./loadenv.php";
+loadEnv();
+$db=dbConnect();
 
-$bdd = dbConnect();
+$db = dbConnect();
 $Id_Commande = htmlspecialchars($_POST["idCommande"]);
 
 $query = 'SELECT Desc_Statut, COMMANDE.Id_Prod, COMMANDE.Id_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Prenom_Uti, COMMANDE.Id_Statut, UTILISATEUR.Adr_Uti, UTILISATEUR.Mail_Uti 
@@ -19,7 +15,7 @@ $query = 'SELECT Desc_Statut, COMMANDE.Id_Prod, COMMANDE.Id_Uti, UTILISATEUR.Nom
           INNER JOIN STATUT ON COMMANDE.Id_Statut=STATUT.Id_Statut 
           INNER JOIN UTILISATEUR ON COMMANDE.Id_Uti=UTILISATEUR.Id_Uti 
           WHERE COMMANDE.Id_Commande = :idCommande';
-$queryGetCommande = $bdd->prepare($query);
+$queryGetCommande = $db->prepare($query);
 $queryGetCommande->bindParam(':idCommande', $Id_Commande, PDO::PARAM_INT);
 $queryGetCommande->execute();
 
@@ -34,11 +30,11 @@ $Id_Statut = $returnQueryGetCommande[0]["Id_Statut"];
 $Mail_Uti = $returnQueryGetCommande[0]["Mail_Uti"];
 $Adr_Uti = $returnQueryGetCommande[0]["Adr_Uti"];
 
-$bdd = dbConnect();
+$db = dbConnect();
 $query = 'SELECT Prenom_Uti, Nom_Uti, Mail_Uti, Adr_Uti, Prof_Prod 
           FROM info_producteur 
           WHERE Id_Prod = :idProducteur';
-$queryGetProducteur = $bdd->prepare($query);
+$queryGetProducteur = $db->prepare($query);
 $queryGetProducteur->bindParam(':idProducteur', $Id_Prod, PDO::PARAM_INT);
 $queryGetProducteur->execute();
 $returnQueryGetProducteur = $queryGetProducteur->fetchAll(PDO::FETCH_ASSOC);
@@ -120,7 +116,7 @@ $query = 'SELECT Nom_Produit, Qte_Produit_Commande, Prix_Produit_Unitaire, Nom_U
           FROM produits_commandes  
           WHERE Id_Commande = :idCommande';
 
-$queryGetProduitCommande = $bdd->prepare($query);
+$queryGetProduitCommande = $db->prepare($query);
 $queryGetProduitCommande->bindParam(':idCommande', $Id_Commande, PDO::PARAM_INT);
 $queryGetProduitCommande->execute();
 $returnQueryGetProduitCommande = $queryGetProduitCommande->fetchAll(PDO::FETCH_ASSOC);
