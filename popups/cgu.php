@@ -7,11 +7,11 @@
 				<input type="submit" value="" class="boutonQuitPopup">
                 <input type="hidden" name="popup" value="">
 		</form>
-        <p class="titrePopup"><?php echo $htmlCondGenUti; ?></p>
+        <p class="titrePopup"><?php echo htmlspecialchars($htmlCondGenUti); ?></p>
         <div>
             <div class="formPopup">
                 <p class="text">
-                    <?php echo $htmlTxtCGU; ?>
+                    <?php echo htmlspecialchars($htmlTxtCGU); ?>
                 </p>
             </div>
         </div>  

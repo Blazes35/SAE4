@@ -16,8 +16,9 @@ if (isset($_POST['formClicked'])){
     </form>
     <p class="titrePopup"><?php echo $htmlSInscrire; ?></p>
     <form class="formPopup" method="post">
+        <div>
         <?php if((isset($_SESSION['tempIsProd']) and $_SESSION['tempIsProd'])){?>
-            <div>
+
                 <label for="profession"><?php echo $htmlParProfession; ?></label>
 
                 <!--  <input class="zoneDeTextePopup" type="profession" name="profession" required> -->
@@ -31,6 +32,38 @@ if (isset($_POST['formClicked'])){
                     <option value="Viticulteur"><?php echo $htmlViticulteur; ?></option>
                     <option value="Pépiniériste"><?php echo $htmlPépiniériste; ?></option>
                 </select>
+            <div>
+                <label for="nom"><?php echo $htmlNomDeuxPoints; ?></label>
+                <input class="zoneDeTextePopup" type="text" name="nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsNomDetails; ?>" required>
+                <input type="hidden" value='sign_up' name="popup">
+            </div>
+            <div>
+                <label for="prenom"><?php echo $htmlPrenomDeuxPoints; ?></label>
+                <input class="zoneDeTextePopup" type="text" name="prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsPrenomDetails; ?>" required>
+            </div>
+            <div>
+                <label for="rue"><?php echo $htmlRueDeuxPoints; ?></label>
+                <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôâêàéôââîââçâœççœâôœêëâôè ]{0,120}" title="<?php echo $htmlConditionsRueDetails; ?>" required>
+            </div>
+            <div>
+                <label for="code"><?php echo $htmlCodePostDeuxPoints; ?></label>
+                <input class="zoneDeTextePopup" type="text" name="code" pattern="^\d{5}$" title="<?php echo $htmlConditionsCodePostal; ?>" required>
+            </div>
+            <div>
+                <label for="ville"><?php echo $htmlVilleDeuxPoints; ?></label>
+                <input class="zoneDeTextePopup" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôâêàôââîââçéâœççœâôœêëâôè ]{0,120}" title="<?php echo $htmlConditionsVille; ?>" required>
+            </div>
+            <div>
+                <label for="mail"><?php echo $htmlMailDeuxPoints; ?></label>
+                <input class="zoneDeTextePopup" type="mail"  name="mail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" size="40" required >
+            </div>
+            <div>
+                <label for="pwd"><?php echo $htmlMdpDeuxPoints; ?></label>
+                <input class="zoneDeTextePopup" type="password" name="pwd" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}".{8,50}" title="<?php echo $htmlConditionsMdp; ?>" required>
+            </div>
+            </div>
+        <?php }else{ ?>
+
         <div>
             <label for="nom"><?php echo $htmlNomDeuxPoints; ?></label>
             <input class="zoneDeTextePopup" type="text" name="nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsNomDetails; ?>" required>
@@ -60,9 +93,6 @@ if (isset($_POST['formClicked'])){
             <label for="pwd"><?php echo $htmlMdpDeuxPoints; ?></label>
             <input class="zoneDeTextePopup" type="password" name="pwd" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}".{8,50}" title="<?php echo $htmlConditionsMdp; ?>" required>
         </div>
-
-
-
 
         </div>
         <?php } ?>
