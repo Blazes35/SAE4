@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', 1);
-// Get the path to the loaded php.ini file
-echo "Loaded php.ini: " . php_ini_loaded_file() . "\n";
 require "language.php";
+session_start()
 ?>
 <head>
     <title><?php echo $htmlMarque; ?></title>
@@ -17,13 +14,6 @@ require "language.php";
 </head>
 
 <body>
-<?php
-
-
-if (!isset($_SESSION)) {
-    session_start();
-}
-?>
 <div class="container">
     <div class="leftColumn">
         <img class="logo" src="img/logo.png">
