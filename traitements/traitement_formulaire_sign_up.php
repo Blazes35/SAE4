@@ -17,14 +17,14 @@ $_SESSION['Mail_Temp'] = $Mail_Uti;
 // Récupération de la valeur maximum de Id_Uti
 $requete = "SELECT MAX(Id_Uti) AS id_max FROM UTILISATEUR";
 $resultat = $db->query($requete);
-$id_max = $resultat->fetch_assoc()['id_max'];
+$id_max = $resultat->fetch(PDO::FETCH_ASSOC)['id_max'];
 
 // Incrémentation de la valeur de $iduti
 $iduti = $id_max + 1;
 // Vérification de l'existence de l'adresse mail
 $requete2 = "SELECT COUNT(*) AS nb FROM UTILISATEUR WHERE Mail_Uti = '$Mail_Uti'";
 $resultat2 = $db->query($requete2);
-$nb = $resultat2->fetch_assoc()['nb'];
+$nb = $resultat2->fetch(PDO::FETCH_ASSOC)['nb'];
 // Exécution de la requête d'insertion si l'adresse mail n'est pas déjà utilisée
 echo($nb);
 if ($nb == 0) {
@@ -75,8 +75,4 @@ if ($nb == 0) {
 } else {
     $_SESSION['erreur'] = $htmlAdrMailDejaUtilisee;
 }
-
-
-// Fermeture de la connexion
-$db->close();
 ?>
