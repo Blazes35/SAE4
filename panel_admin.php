@@ -12,20 +12,14 @@
 </head>
 <body>
 <?php
-echo "<p>test</p>";
-echo "1";
 $db = dbConnect();
-echo "2";
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
-echo "3";
 $filtreCategorie = 0;
-echo "4";
 if (isset($_POST["typeCategorie"]) == true) {
-    echo "5";
     $filtreCategorie = htmlspecialchars($_POST["typeCategorie"]);
-    echo "6";
 }
-
+var_dump(isset($_SESSION["Id_Uti"]));
+var_dump($_SESSION["Id_Uti"]);
 ?>
 
 <div class="container">
