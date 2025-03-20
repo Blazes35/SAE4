@@ -2,7 +2,7 @@
 require "language.php";
 require "loadenv.php";
 session_start();
-if (isset($_SESSION["isAdmin"]) and $_SESSION["isAdmin"]){
+if (!isset($_SESSION["isAdmin"]) or !$_SESSION["isAdmin"]){
     header('Location: index.php');
 }
 loadEnv();
