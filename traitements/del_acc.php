@@ -62,6 +62,7 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
             $iterateurProduit++;
         }
 
+
         $test = $db->prepare('UPDATE COMMANDE SET Id_Statut=3 WHERE Id_Uti= :utilisateur AND Id_Statut<>4;');
         $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
         $test->execute();
