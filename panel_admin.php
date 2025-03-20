@@ -1,36 +1,29 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <?php
-    require "language.php";
-    require "loadenv.php";
-    ?>
-    <title><?php echo $htmlMarque; ?></title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/style_general.css">
-    <link rel="stylesheet" type="text/css" href="css/popup.css">
-</head>
-<body>
 <?php
+require "language.php";
+require "loadenv.php";
 session_start();
+if (isset($_SESSION["isAdmin"]) and $_SESSION["isAdmin"]){
+    header('Location: index.php');
+}
 loadEnv();
 $db = dbConnect();
-echo "aled";
-var_dump(isset($_SESSION["Id_Uti"]));
-var_dump($_SESSION["Id_Uti"]);
-echo "aled";
-var_dump(isset($_SESSION["Id_Uti"]));
-var_dump($_SESSION["Id_Uti"]);
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
-echo "aled";
-var_dump(isset($_SESSION["Id_Uti"]));
-var_dump($_SESSION["Id_Uti"]);
 $filtreCategorie = 0;
 if (isset($_POST["typeCategorie"]) == true) {
     $filtreCategorie = htmlspecialchars($_POST["typeCategorie"]);
 }
 
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title><?php echo $htmlMarque; ?></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style_general.css">
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
+</head>
+<body>
+
 
 <div class="container">
     <div class="leftColumn">
