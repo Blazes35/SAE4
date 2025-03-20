@@ -25,7 +25,7 @@ if (isset($_POST["typeCategorie"]) == true) {
 <body>
 
 
-<div class="container">
+<div class="customContainer">
     <div class="leftColumn">
         <img class="logo" href="index.php" src="img/logo.png">
         <div class="contenuBarre">
@@ -73,7 +73,7 @@ if (isset($_POST["typeCategorie"]) == true) {
 
             </form>
         </div>
-        <div class="gallery-container">
+        <div class="gallery-customContainer">
             <?php
 
             // Préparez la requête SQL en utilisant des requêtes préparées pour des raisons de sécurité
@@ -100,7 +100,7 @@ if (isset($_POST["typeCategorie"]) == true) {
                 echo $htmlErrorDevTeam;
             }
             ?>
-            <div class="gallery-container">
+            <div class="gallery-customContainer">
                 <?php
 
                 // Préparez la requête SQL en utilisant des requêtes préparées pour des raisons de sécurité

@@ -145,7 +145,7 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"]=="oui"){
         <link rel="stylesheet" href="../css/deleteAcc.css">
     </head>
     <body>
-    <div class="container">
+    <div class="customContainer">
         <form method="post" action="del_acc.php">
             <p>Voulez-vous vraiment supprimer votre compte</p>
             <input type="hidden" name="confirm_delete" value="oui">

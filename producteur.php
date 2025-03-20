@@ -41,7 +41,7 @@
         $rechercheNom="";
       }
     ?>
-    <div class="container">
+    <div class="customContainer">
         <div class="leftColumn">
 			<img class="logo" href="index.php" src="img/logo.png">
             <div class="contenuBarre">
@@ -153,11 +153,11 @@
             <form method="get" action="insert_commande.php">
                 <input type="hidden" name="Id_Prod" value="<?php echo $Id_Prod?>">
             
-            <div class="content-container">
+            <div class="content-customContainer">
                 <div class="product">
                     <!-- partie de gauche avec les produits -->
                     <p><center><U><?php echo $htmlProduitsProposesDeuxPoints; ?></U></center></p>
-                    <div class="gallery-container">
+                    <div class="gallery-customContainer">
                         <?php
                             $db=dbConnect();
                             //filtre type
@@ -250,7 +250,7 @@
                         $prenom = $returnQueryInfoProd[0]["Prenom_Uti"];
                         $profession = $returnQueryInfoProd[0]["Prof_Prod"];
                     ?>
-                    <div class="info-container">
+                    <div class="info-customContainer">
 						<div class="img-prod">
                         	<img class="img-test" src="img_producteur/<?php echo $Id_Prod; ?>.png" alt="<?php echo $htmlImgProducteur; ?>" style="width: 99%; height: 99%;">
 						</div>

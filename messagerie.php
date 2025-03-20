@@ -14,7 +14,7 @@ session_start();
 </head>
 
 <body>
-<div class="container">
+<div class="customContainer">
     <div class="leftColumn">
         <img class="logo" src="img/logo.png">
         <p><?php echo $htmlContactsRecentsDeuxPoints ?></p>

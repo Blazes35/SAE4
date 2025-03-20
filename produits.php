@@ -31,7 +31,7 @@ $db = dbConnect();
       $Id_Prod=$returnQueryIdProd[0]["Id_Prod"];
     ?>
 
-    <div class="container">
+    <div class="customContainer">
         <div class="leftColumn">
 			<img class="logo" href="index.php" src="img/logo.png">
             <div class="contenuBarre">
@@ -132,7 +132,7 @@ $db = dbConnect();
 
                     <!-- partie de gauche avec les produits -->
                     <p><center><U><?php echo $htmlMesProduitsEnStock; ?></U></center></p>
-                    <div class="gallery-container">
+                    <div class="gallery-customContainer">
                         <?php
                             $db=dbConnect();
                             $queryGetProducts = $db->prepare(('SELECT Id_Produit, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit, Nom_Unite_Stock FROM Produits_d_un_producteur WHERE Id_Prod= :Id_Prod ;'));

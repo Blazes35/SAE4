@@ -28,7 +28,7 @@ body{
     background-color: #4caf50;
     margin: 5px;
 }
-.container{
+.customContainer{
     margin: 0px;
     padding: 0px;
     height: 100%;
@@ -126,7 +126,7 @@ body{
 }
 
 
-.gallery-container {
+.gallery-customContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center ;
@@ -168,7 +168,7 @@ body{
     margin: 5px;
 }
 
-.content-container {
+.content-customContainer {
     display: flex;
     padding: 20px;
     /* Utiliser Flexbox pour les éléments "product" et "map" */

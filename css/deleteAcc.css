@@ -6,7 +6,7 @@ body {
     justify-content: center;
     margin: 0;
 }
-.container {
+.customContainer {
     margin-top: 300px;
     background-color: #669D31;
     padding: 20px;
@@ -14,11 +14,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-.container p {
+.customContainer p {
     font-size: 30px;
     margin-bottom: 25px;
 }
-.container button {
+.customContainer button {
     padding: 10px 20px;
     margin: 10px;
     border: none;

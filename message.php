@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="container">
+    <div class="customContainer">
         <div class="left-column">
 			<img class="logo" src="img/logo.png">
 			
@@ -22,7 +22,7 @@
             <div class="fixed-banner">
                 <!-- Partie gauche du bandeau -->
                 <div class="banner-left">
-                    <div class="button-container">
+                    <div class="button-customContainer">
                         <button class="button"><a href="index.php">accueil</a></button>
                         <button class="button"><a href="message.php">messagerie</a></button>
                         <button class="button"><a href="commandes.php">commandes</a></button>

@@ -53,7 +53,7 @@ if (isset($_POST['confirm_update']) && $_POST['confirm_update'] == 'oui') {
         <link rel="stylesheet" href="../css/deleteAcc.css">
     </head>
     <body>
-    <div class="container">
+    <div class="customContainer">
         <form method="post" action="update_user_info.php">
             <p>Voulez-vous vraiment modifier vos informations ?</p>
             <input type="hidden" name="confirm_update" value="oui">
