@@ -282,7 +282,7 @@ DELIMITER ;
 -- 2) Procédure qui envoie un message à tous les producteurs
 
 DELIMITER $$
-CREATE  PROCEDURE broadcast_Producteur(
+CREATE PROCEDURE broadcast_Producteur(
   IN emetteur INT,
   IN contenuMsg VARCHAR(4096)
 )
