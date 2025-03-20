@@ -9,6 +9,8 @@ if (!isset($_SESSION)) {
 $db = dbConnect();
 $message = $_POST['message'];
 if (isset($_SESSION["Id_Uti"]) && isset($message)) {
+    var_dump($message);
+    die("test");
     $message = $db->quote($message);
 
     $db->query('CALL broadcast_Utilisateur(' . $_SESSION["Id_Uti"] . ', ' . $message . ');');
