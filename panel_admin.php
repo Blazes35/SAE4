@@ -37,6 +37,7 @@ if (isset($_POST["typeCategorie"]) == true) {
                 <a class="bontonDeNavigation" href="index.php"><?php echo $htmlAccueil ?></a>
                 <?php
                 var_dump(isset($_SESSION["Id_Uti"]));
+                die("tester");
                 if (isset($_SESSION["Id_Uti"])) {
                     echo '<a class="bontonDeNavigation" href="messagerie.php">' . $htmlMessagerie . '</a>';
                     echo '<a class="bontonDeNavigation" href="achats.php">' . $htmlAchats . '</a>';
