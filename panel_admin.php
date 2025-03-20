@@ -21,7 +21,8 @@ $filtreCategorie = 0;
 if (isset($_POST["typeCategorie"]) == true) {
     $filtreCategorie = htmlspecialchars($_POST["typeCategorie"]);
 }
-
+var_dump(isset($_SESSION["Id_Uti"]));
+die("tester");
 ?>
 
 <div class="container">
@@ -36,8 +37,6 @@ if (isset($_POST["typeCategorie"]) == true) {
             <div class="divNavigation">
                 <a class="bontonDeNavigation" href="index.php"><?php echo $htmlAccueil ?></a>
                 <?php
-                var_dump(isset($_SESSION["Id_Uti"]));
-                die("tester");
                 if (isset($_SESSION["Id_Uti"])) {
                     echo '<a class="bontonDeNavigation" href="messagerie.php">' . $htmlMessagerie . '</a>';
                     echo '<a class="bontonDeNavigation" href="achats.php">' . $htmlAchats . '</a>';
