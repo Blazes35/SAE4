@@ -54,40 +54,39 @@ session_start();
         if (true) {?>
             <form class="formPopup" action='traitements/update_user_info.php' method="post">
                 <input type="hidden" value='info_perso' name="popup">
-                <div>
-                    <label for="new_nom"><?php echo htmlspecialchars($htmlNomDeuxPoints); ?></label>
-                    <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value="<?php echo ($result["Nom_Uti"]) ?>">
+                <div class="mb-3">
+                    <label for="new_nom" class="form-label"><?php echo htmlspecialchars($htmlNomDeuxPoints); ?></label>
+                    <input class="form-control" type="text" name="new_nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value="<?php echo ($result["Nom_Uti"]) ?>">
                 </div>
-                <div>
-                    <label for="new_prenom"><?php echo htmlspecialchars($htmlPrenomDeuxPoints); ?></label>
-                    <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value="<?php echo ($result["Prenom_Uti"]) ?>">
+                <div class="mb-3">
+                    <label for="new_prenom" class="form-label"><?php echo htmlspecialchars($htmlPrenomDeuxPoints); ?></label>
+                    <input class="form-control" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value="<?php echo ($result["Prenom_Uti"]) ?>">
                 </div>
-
-                <div>
-                    <label for="rue"><?php echo htmlspecialchars($htmlRueDeuxPoints); ?></label>
-                    <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}"  title="<?php echo $htmlConditionsRue; ?>" value="<?=$parsedAddress['rue'] ?>" required>
+                <div class="mb-3">
+                    <label for="rue" class="form-label"><?php echo htmlspecialchars($htmlRueDeuxPoints); ?></label>
+                    <input class="form-control" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsRue; ?>" value="<?=$parsedAddress['rue'] ?>" required>
                 </div>
-                <div>
-                    <label for="code"><?php echo htmlspecialchars($htmlCodePostDeuxPoints); ?></label>
-                    <input class="zoneDeTextePopup" type="text" name="code" pattern="^\d{5}$" title="<?php echo $htmlConditionsCodePostal; ?>" value="<?=$parsedAddress['code_postale'] ?>"  required>
+                <div class="mb-3">
+                    <label for="code" class="form-label"><?php echo htmlspecialchars($htmlCodePostDeuxPoints); ?></label>
+                    <input class="form-control" type="text" name="code" pattern="^\d{5}$" title="<?php echo $htmlConditionsCodePostal; ?>" value="<?=$parsedAddress['code_postale'] ?>" required>
                 </div>
-                <div>
-                    <label for="ville"><?php echo htmlspecialchars($htmlVilleDeuxPoints); ?></label>
-                    <input class="zoneDeTextePopup" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsVille; ?>" value="<?=$parsedAddress['ville'] ?>" required>
+                <div class="mb-3">
+                    <label for="ville" class="form-label"><?php echo htmlspecialchars($htmlVilleDeuxPoints); ?></label>
+                    <input class="form-control" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsVille; ?>" value="<?=$parsedAddress['ville'] ?>" required>
                 </div>
-                <div>
-                    <label for="pwd">Mot de passe actuel</label>
-                    <input class="zoneDeTextePopup" type="password" name="pwd" required>
+                <div class="mb-3">
+                    <label for="pwd" class="form-label">Mot de passe actuel</label>
+                    <input class="form-control" type="password" name="pwd" required>
                 </div>
-                <div>
+                <div class="mb-3">
                     <?php
                     if (isset($_SESSION['erreur'])) {
                         $erreur = $_SESSION['erreur'];
-                        echo '<p class="erreur">'.$erreur.'</p>';
+                        echo '<p class="text-danger">'.$erreur.'</p>';
                     }
                     ?>
                 </div>
-                <button type="submit"><?php echo htmlspecialchars($htmlModifier); ?></button>
+                <button type="submit" class="btn btn-primary"><?php echo htmlspecialchars($htmlModifier); ?></button>
             </form>
                     <a href="traitements/del_acc.php"><button><?php echo htmlspecialchars($htmlSupprimerCompte); ?></button></a>
                     <?php if ((isset($_SESSION['isProd']) and $_SESSION['isProd'])) { ?>

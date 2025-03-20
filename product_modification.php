@@ -36,7 +36,7 @@
           $Id_Unite_Prix = $returnQueryGetProducts[0]["Id_Unite_Prix"];
           //var_dump($Id_Type_Produit);
         ?>
-    <div class="container">
+    <div class="customContainer">
         <div class="leftColumn">
 			<img class="logo" href="index.php" src="img/logo.png">
             <div class="contenuBarre">
@@ -269,7 +269,7 @@
 
                     <!-- partie de gauche avec les produits -->
                     <p><center><U><?php echo $htmlMesProduitsEnStock?></U></center></p>
-                    <div class="gallery-container">
+                    <div class="gallery-customContainer">
                         <?php
                             $db=dbConnect();
                             $queryIdProd = $db->prepare('SELECT Id_Prod FROM PRODUCTEUR WHERE Id_Uti = :utilisateur');

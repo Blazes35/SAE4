@@ -18,6 +18,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style_general.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <?php
@@ -121,31 +122,30 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
 }
 
 ?>
-<div class="container">
+<div class="customContainer">
     <div class="leftColumn">
         <img class="logo" href="index.php" src="img/logo.png">
         <div class="contenuBarre">
 
             <center><strong><p><?php echo $htmlRechercherPar; ?></p></strong></center>
-            <form method="get" action="index.php">
-                <label><?php echo $htmlParProfession ?></label>
-                <br>
-                <select name="categorie" id="categories">
-                    <option value="Tout" <?php if ($_GET["categorie"] == "Tout") echo 'selected="selected"'; ?>><?php echo $htmlTout ?></option>
-                    <option value="Agriculteur" <?php if ($_GET["categorie"] == "Agriculteur") echo 'selected="selected"'; ?>><?php echo $htmlAgriculteur ?></option>
-                    <option value="Vigneron" <?php if ($_GET["categorie"] == "Vigneron") echo 'selected="selected"'; ?>><?php echo $htmlVigneron ?></option>
-                    <option value="Maraîcher" <?php if ($_GET["categorie"] == "Maraîcher") echo 'selected="selected"'; ?>><?php echo $htmlMaraîcher ?></option>
-                    <option value="Apiculteur" <?php if ($_GET["categorie"] == "Apiculteur") echo 'selected="selected"'; ?>><?php echo $htmlApiculteur ?></option>
-                    <option value="Éleveur de volaille" <?php if ($_GET["categorie"] == "Éleveur de volaille") echo 'selected="selected"'; ?>><?php echo $htmlÉleveurdevolailles ?></option>
-                    <option value="Viticulteur" <?php if ($_GET["categorie"] == "Viticulteur") echo 'selected="selected"'; ?>><?php echo $htmlViticulteur ?></option>
-                    <option value="Pépiniériste" <?php if ($_GET["categorie"] == "Pépiniériste") echo 'selected="selected"'; ?>><?php echo $htmlPépiniériste ?></option>
-                </select>
-                <br>
-                <br><?php echo $htmlParVille ?>
-                <br>
-                <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}"
-                       value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
-                <br>
+            <form method="get" action="index.php" class="p-3">
+                <div class="mb-3">
+                    <label for="categories" class="form-label"><?php echo $htmlParProfession ?></label>
+                    <select name="categorie" id="categories" class="form-select">
+                        <option value="Tout" <?php if ($_GET["categorie"] == "Tout") echo 'selected="selected"'; ?>><?php echo $htmlTout ?></option>
+                        <option value="Agriculteur" <?php if ($_GET["categorie"] == "Agriculteur") echo 'selected="selected"'; ?>><?php echo $htmlAgriculteur ?></option>
+                        <option value="Vigneron" <?php if ($_GET["categorie"] == "Vigneron") echo 'selected="selected"'; ?>><?php echo $htmlVigneron ?></option>
+                        <option value="Maraîcher" <?php if ($_GET["categorie"] == "Maraîcher") echo 'selected="selected"'; ?>><?php echo $htmlMaraîcher ?></option>
+                        <option value="Apiculteur" <?php if ($_GET["categorie"] == "Apiculteur") echo 'selected="selected"'; ?>><?php echo $htmlApiculteur ?></option>
+                        <option value="Éleveur de volaille" <?php if ($_GET["categorie"] == "Éleveur de volaille") echo 'selected="selected"'; ?>><?php echo $htmlÉleveurdevolailles ?></option>
+                        <option value="Viticulteur" <?php if ($_GET["categorie"] == "Viticulteur") echo 'selected="selected"'; ?>><?php echo $htmlViticulteur ?></option>
+                        <option value="Pépiniériste" <?php if ($_GET["categorie"] == "Pépiniériste") echo 'selected="selected"'; ?>><?php echo $htmlPépiniériste ?></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="rechercheVille" class="form-label"><?php echo $htmlParVille ?></label>
+                    <input type="text" name="rechercheVille" id="rechercheVille" class="form-control" pattern="[A-Za-z0-9 ]{0,100}" value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
+                </div>
                 <?php
                 $queryAdrUti = $db->prepare(('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti= :utilisateur;'));
                 $queryAdrUti->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
@@ -155,51 +155,40 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                 if (count($returnQueryAdrUti) > 0) {
                     $Adr_Uti_En_Cours = $returnQueryAdrUti[0]["Adr_Uti"];
                     ?>
-                    <br>
-                    <br><?php echo $htmlAutourDeChezMoi . ' (' . $Adr_Uti_En_Cours . ')'; ?>
-                    <br>
-                    <br>
-                    <input name="rayon" type="range" value="<?php echo $rayon; ?>" min="1" max="100" step="1"
-                           onchange="AfficheRange2(this.value)" onkeyup="AfficheRange2(this.value)">
-                    <span id="monCurseurKm"><?php echo $htmlRayonDe ?><?php echo $rayon;
-                        if ($rayon >= 100) echo '+'; ?></span>
-                    <script>
-                        function AfficheRange2(newVal) {
-                            var monCurseurKm = document.getElementById("monCurseurKm");
-                            if ((newVal >= 100)) {
-                                monCurseurKm.innerHTML = "Rayon de " + newVal + "+ ";
-                            } else {
-                                monCurseurKm.innerHTML = "Rayon de " + newVal + " ";
+                    <div class="mb-3">
+                        <label class="form-label"><?php echo $htmlAutourDeChezMoi . ' (' . $Adr_Uti_En_Cours . ')'; ?></label>
+                        <input name="rayon" type="range" class="form-range" value="<?php echo $rayon; ?>" min="1" max="100" step="1" onchange="AfficheRange2(this.value)" onkeyup="AfficheRange2(this.value)">
+                        <span id="monCurseurKm"><?php echo $htmlRayonDe ?><?php echo $rayon; if ($rayon >= 100) echo '+'; ?></span>
+                        <script>
+                            function AfficheRange2(newVal) {
+                                var monCurseurKm = document.getElementById("monCurseurKm");
+                                if ((newVal >= 100)) {
+                                    monCurseurKm.innerHTML = "Rayon de " + newVal + "+ ";
+                                } else {
+                                    monCurseurKm.innerHTML = "Rayon de " + newVal + " ";
+                                }
                             }
-                        }
-                    </script>
-                <?php echo $htmlKm ?>
-                    <br>
-                    <br>
+                        </script>
+                        <?php echo $htmlKm ?>
+                    </div>
                     <?php
-
                 } else {
                     $Adr_Uti_En_Cours = 'France';
                 }
                 ?>
-                <br>
-
-
-                <label><?php echo $htmlTri ?></label>
-                <br>
-                <select name="tri" required>
-                    <option value="nombreDeProduits" <?php if ($tri == "nombreDeProduits") echo 'selected="selected"'; ?>><?php echo $htmlNombreDeProduits ?></option>
-                    <option value="ordreNomAlphabétique" <?php if ($tri == "ordreNomAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParNomAl ?></option>
-                    <option value="ordreNomAntiAlphabétique" <?php if ($tri == "ordreNomAntiAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParNomAntiAl ?></option>
-                    <option value="ordrePrenomAlphabétique" <?php if ($tri == "ordrePrenomAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParPrenomAl ?></option>
-                    <option value="ordrePrenomAntiAlphabétique" <?php if ($tri == "ordrePrenomAntiAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParPrenomAntiAl ?></option>
-                </select>
-                <br>
-                <br>
-                <br>
-
-
-                <center><input type="submit" value="<?php echo $htmlRechercher ?>"></center>
+                <div class="mb-3">
+                    <label for="tri" class="form-label"><?php echo $htmlTri ?></label>
+                    <select name="tri" id="tri" class="form-select" required>
+                        <option value="nombreDeProduits" <?php if ($tri == "nombreDeProduits") echo 'selected="selected"'; ?>><?php echo $htmlNombreDeProduits ?></option>
+                        <option value="ordreNomAlphabétique" <?php if ($tri == "ordreNomAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParNomAl ?></option>
+                        <option value="ordreNomAntiAlphabétique" <?php if ($tri == "ordreNomAntiAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParNomAntiAl ?></option>
+                        <option value="ordrePrenomAlphabétique" <?php if ($tri == "ordrePrenomAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParPrenomAl ?></option>
+                        <option value="ordrePrenomAntiAlphabétique" <?php if ($tri == "ordrePrenomAntiAlphabétique") echo 'selected="selected"'; ?>><?php echo $htmlParPrenomAntiAl ?></option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary"><?php echo $htmlRechercher ?></button>
+                </div>
             </form>
 
 
@@ -268,7 +257,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
         </div>
 
         <h1> <?php echo $htmlProducteursEnMaj ?> </h1>
-        <div class="gallery-container">
+        <div class="gallery-customContainer">
             <?php
             // Replace this section - starting around line 368
             if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -363,12 +352,18 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         if (count($results) > 0) {
                             foreach ($results as $row) {
                                 if ($rayon >= 100) {
-                                    echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
-                                    echo $row["Prof_Prod"] . "<br>";
-                                    echo $row["Prenom_Uti"] . " " . mb_strtoupper($row["Nom_Uti"]) . "<br>";
-                                    echo $row["Adr_Uti"] . "<br>";
-                                    echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" ><br>';
-                                    echo '</a> ';
+                                    echo "<div class='card' style='width: 18rem;'>";
+                                    echo '<img src="img_producteur/' . htmlspecialchars($row["Id_Prod"]) . '.png" class="card-img-top" alt="' . htmlspecialchars($htmlImageUtilisateur) . '">';
+                                    echo '<div class="card-body">';
+                                    echo '<a href="producteur.php?Id_Prod=' . htmlspecialchars($row["Id_Prod"]) . '" class="square1">';
+                                    echo '<p class="card-text">';
+                                    echo "Nom : " . htmlspecialchars($row["Nom_Uti"]) . "<br>";
+                                    echo "Prénom : " . htmlspecialchars($row["Prenom_Uti"]) . "<br>";
+                                    echo "Adresse : " . htmlspecialchars($row["Adr_Uti"]) . "<br>";
+                                    echo '</p>';
+                                    echo '</a>';
+                                    echo '</div>';
+                                    echo "</div>";
                                 } else {
                                     $urlProd = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($row["Adr_Uti"]);
                                     $coordonneesProd = latLongGps($urlProd);
@@ -376,13 +371,20 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                                     $longitudeProd = $coordonneesProd[1];
                                     $distance = distance($latitudeUti, $longitudeUti, $latitudeProd, $longitudeProd);
 
+                                    //
                                     if ($distance < $rayon) {
-                                        echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
-                                        echo "Nom : " . $row["Nom_Uti"] . "<br>";
-                                        echo "Prénom : " . $row["Prenom_Uti"] . "<br>";
-                                        echo "Adresse : " . $row["Adr_Uti"] . "<br>";
-                                        echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="Image utilisateur" style="width: 100%; height: 85%;" ><br>';
-                                        echo '</a> ';
+                                        echo "<div class='card' style='width: 18rem;'>";
+                                            echo '<img src="img_producteur/' . htmlspecialchars($row["Id_Prod"]) . '.png" class="card-img-top" alt="Image utilisateur">';
+                                            echo '<div class="card-body">';
+                                                echo '<a href="producteur.php?Id_Prod=' . htmlspecialchars($row["Id_Prod"]) . '" class="square1">';
+                                                echo '<p class="card-text">';
+                                                    echo "Nom : " . htmlspecialchars($row["Nom_Uti"]) . "<br>";
+                                                    echo "Prénom : " . htmlspecialchars($row["Prenom_Uti"]) . "<br>";
+                                                    echo "Adresse : " . htmlspecialchars($row["Adr_Uti"]) . "<br>";
+                                                echo '</p>';
+                                                echo '</a>';
+                                            echo '</div>';
+                                        echo "</div>";
                                     }
                                 }
                             }
@@ -411,4 +413,5 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
     </div>
 </div>
 <?php require "popups/gestion_popups.php"; ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
