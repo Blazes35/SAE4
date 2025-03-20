@@ -1,4 +1,5 @@
 <?php
+die("test");
 require_once "loadenv.php";
 loadEnv();
 if (!isset($_SESSION)) {
