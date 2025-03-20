@@ -70,9 +70,9 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
         $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
         $test->execute();
 
-        $test = $db->prepare('DELETE FROM UTILISATEUR WHERE Id_Uti=:utilisateur;');
-        $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
-        $test->execute();
+//        $test = $db->prepare('DELETE FROM UTILISATEUR WHERE Id_Uti=:utilisateur;');
+//        $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
+//        $test->execute();
     } else {
         //echo ' producteur';
         $db = dbConnect();
