@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
     <?php
-//    require "language.php";
+    require "language.php";
     require_once "loadenv.php"
     ?>
 </head>
