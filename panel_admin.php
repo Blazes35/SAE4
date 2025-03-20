@@ -3,7 +3,7 @@
 <head>
     <?php
     require "language.php";
-    require_once "loadenv.php"
+    require_once "loadenv.php";
     ?>
     <title><?php echo $htmlMarque; ?></title>
     <meta charset="UTF-8">
