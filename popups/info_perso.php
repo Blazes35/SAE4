@@ -62,10 +62,7 @@ session_start();
                     <label for="new_prenom"><?php echo htmlspecialchars($htmlPrenomDeuxPoints); ?></label>
                     <input class="zoneDeTextePopup zoneDeTextePopupFixSize" type="text" name="new_prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" value="<?php echo ($result["Prenom_Uti"]) ?>">
                 </div>
-                <div>
-                    <label><?php echo htmlspecialchars($htmlAdrPostDeuxPoints); ?></label>
-                    <label><?php echo htmlspecialchars($result["Adr_Uti"]); ?></label>
-                </div>
+
                 <div>
                     <label for="rue"><?php echo htmlspecialchars($htmlRueDeuxPoints); ?></label>
                     <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}"  title="<?php echo $htmlConditionsRue; ?>" value="<?=$parsedAddress['rue'] ?>" required>
