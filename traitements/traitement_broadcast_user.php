@@ -1,16 +1,12 @@
 <?php
-die("test");
-require_once "loadenv.php";
+require_once "../loadenv.php";
 loadEnv();
 if (!isset($_SESSION)) {
     session_start();
 }
-
 // Connect to database
 $db = dbConnect();
 $message = $_POST['message'];
- var_dump($message);
-    die("test");
 if (isset($_SESSION["Id_Uti"]) && isset($message)) {
 
     $message = $db->quote($message);
