@@ -41,7 +41,6 @@ if (isset($_POST['popup'])){
     if (isset($_SESSION['actualiser']) and $_SESSION['actualiser']){
         $_SESSION['actualiser'] = false;
         $_SESSION['tempPopup'] = $_POST['popup'];
-        //header('refresh:0');
     }
 }
 ?>
