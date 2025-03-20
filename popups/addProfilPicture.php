@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Définir les variables nécessaires
+$popup = isset($_SESSION['popup']) ? $_SESSION['popup'] : 'default_value';
+$htmlSInscrire = isset($_SESSION['htmlSInscrire']) ? $_SESSION['htmlSInscrire'] : 'Inscription';
+
+?>
+
 <div class="popup">
     <div class="contenuPopup">
         <form method="post">
