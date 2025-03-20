@@ -15,7 +15,22 @@ if (isset($_POST['formClicked'])){
             <input type="hidden" name="popup" value="">
     </form>
     <p class="titrePopup"><?php echo $htmlSInscrire; ?></p>
-    <form class="formPopup" method="post"> 
+    <form class="formPopup" method="post">
+        <?php if((isset($_SESSION['tempIsProd']) and $_SESSION['tempIsProd'])){?>
+            <div>
+                <label for="profession"><?php echo $htmlParProfession; ?></label>
+
+                <!--  <input class="zoneDeTextePopup" type="profession" name="profession" required> -->
+
+                <select class="zoneDeTextePopup" name="profession" required>
+                    <option value="Agriculteur" selected><?php echo $htmlAgriculteur; ?></option>
+                    <option value="Vigneron"><?php echo $htmlVigneron; ?></option>
+                    <option value="Maraîcher"><?php echo $htmlMaraîcher; ?></option>
+                    <option value="Apiculteur"><?php echo $htmlApiculteur; ?></option>
+                    <option value="Éleveur de volaille"><?php echo $htmlÉleveurdevolailles; ?></option>
+                    <option value="Viticulteur"><?php echo $htmlViticulteur; ?></option>
+                    <option value="Pépiniériste"><?php echo $htmlPépiniériste; ?></option>
+                </select>
         <div>
             <label for="nom"><?php echo $htmlNomDeuxPoints; ?></label>
             <input class="zoneDeTextePopup" type="text" name="nom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsNomDetails; ?>" required>
@@ -38,28 +53,15 @@ if (isset($_POST['formClicked'])){
             <input class="zoneDeTextePopup" type="text" name="ville" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôâêàôââîââçéâœççœâôœêëâôè ]{0,120}" title="<?php echo $htmlConditionsVille; ?>" required>
         </div>
         <div>
-            <label for="pwd"><?php echo $htmlMdpDeuxPoints; ?></label>
-            <input class="zoneDeTextePopup" type="password" name="pwd" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}".{8,50}" title="<?php echo $htmlConditionsMdp; ?>" required>
-        </div>
-        <div>
             <label for="mail"><?php echo $htmlMailDeuxPoints; ?></label>
             <input class="zoneDeTextePopup" type="mail"  name="mail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" size="40" required >
         </div>
-        <?php if((isset($_SESSION['tempIsProd']) and $_SESSION['tempIsProd'])){?> 
         <div>
-            <label for="profession"><?php echo $htmlParProfession; ?></label>
+            <label for="pwd"><?php echo $htmlMdpDeuxPoints; ?></label>
+            <input class="zoneDeTextePopup" type="password" name="pwd" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}".{8,50}" title="<?php echo $htmlConditionsMdp; ?>" required>
+        </div>
 
-			<!--  <input class="zoneDeTextePopup" type="profession" name="profession" required> -->
 
-            <select class="zoneDeTextePopup" name="profession" required>
-                <option value="Agriculteur" selected><?php echo $htmlAgriculteur; ?></option>
-                <option value="Vigneron"><?php echo $htmlVigneron; ?></option>
-                <option value="Maraîcher"><?php echo $htmlMaraîcher; ?></option>
-                <option value="Apiculteur"><?php echo $htmlApiculteur; ?></option>
-                <option value="Éleveur de volaille"><?php echo $htmlÉleveurdevolailles; ?></option>
-                <option value="Viticulteur"><?php echo $htmlViticulteur; ?></option>
-                <option value="Pépiniériste"><?php echo $htmlPépiniériste; ?></option>
-            </select>
 
 
         </div>
