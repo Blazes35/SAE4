@@ -19,6 +19,7 @@ $filtreCategorie = 0;
 if (isset($_POST["typeCategorie"]) == true) {
     $filtreCategorie = htmlspecialchars($_POST["typeCategorie"]);
 }
+echo "aled";
 var_dump(isset($_SESSION["Id_Uti"]));
 var_dump($_SESSION["Id_Uti"]);
 ?>
