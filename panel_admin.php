@@ -3,7 +3,8 @@
 <head>
     <?php
     require "language.php";
-    require_once "loadenv.php";
+    require "loadenv.php";
+    $db = dbConnect();
     ?>
     <title><?php echo $htmlMarque; ?></title>
     <meta charset="UTF-8">
@@ -16,7 +17,6 @@ session_start();
 echo "aled";
 var_dump(isset($_SESSION["Id_Uti"]));
 var_dump($_SESSION["Id_Uti"]);
-//$db = dbConnect();
 echo "aled";
 var_dump(isset($_SESSION["Id_Uti"]));
 var_dump($_SESSION["Id_Uti"]);
