@@ -2,7 +2,7 @@
 <html lang="fr">
 <?php
 require "language.php";
-session_start()
+session_start();
 ?>
 <head>
     <title><?php echo $htmlMarque; ?></title>
