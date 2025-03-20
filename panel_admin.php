@@ -13,7 +13,7 @@
 <?php
 echo "<p>test</p>";
 echo "1";
-//$db = dbConnect();
+$db = dbConnect();
 echo "2";
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
 echo "3";
