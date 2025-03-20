@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <?php
-//    require "language.php";
+    require "language.php";
     require_once "loadenv.php";
     ?>
     <title><?php echo $htmlMarque; ?></title>
