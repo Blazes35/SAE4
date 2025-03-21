@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style_general.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 
@@ -156,42 +157,32 @@
 						$iterateurProduit=0;
 						$nbProduit=count($returnQueryGetProduitCommande);
 
-						if ($nbProduit>0){
-							echo '<div class="commande" >';
-							echo $htmlCommandeNum,  $iterateurCommande+1 ." : ".$htmlChez, $Prenom_Prod.' '.$Nom_Prod.' - '.$Adr_Uti;
-							echo '</br>';
-							echo $Desc_Statut;
-							echo '</br>';
-							if ($Id_Statut!=3 and $Id_Statut!=4){
-							echo '<form action="delete_commande.php" method="post">';
-							echo '<input type="hidden" name="deleteValeur" value="'.$Id_Commande.'">';
-							
-							echo '<button type="submit">'.$htmlAnnulerCommande.'</button>';
-							echo '</form>';
-							}
-						}
-
-                        ?>
-                        <input type="button" onclick="window.location.href='messagerie.php?Id_Interlocuteur=<?php echo $idUti; ?>'" value="<?php echo $htmlEnvoyerMessage; ?>">
-                        <br>
-                        <?php
-
-						while ($iterateurProduit<$nbProduit){
-							$Nom_Produit=$returnQueryGetProduitCommande[$iterateurProduit]["Nom_Produit"];
-							$Qte_Produit_Commande=$returnQueryGetProduitCommande[$iterateurProduit]["Qte_Produit_Commande"];
-							$Nom_Unite_Prix=$returnQueryGetProduitCommande[$iterateurProduit]["Nom_Unite_Prix"];
-							$Prix_Produit_Unitaire=$returnQueryGetProduitCommande[$iterateurProduit]["Prix_Produit_Unitaire"];
-                            echo "- " . $Nom_Produit ." - ".$Qte_Produit_Commande.' '.$Nom_Unite_Prix.' * '.$Prix_Produit_Unitaire.'€ = '.(floatval($Prix_Produit_Unitaire) * floatval($Qte_Produit_Commande)).'€';
-							echo "</br>";
-                            $total = $total + (floatval($Prix_Produit_Unitaire) * floatval($Qte_Produit_Commande));
-                            $iterateurProduit++;
-						}
+                        if ($nbProduit > 0) {
+                            echo '<div class="commande card mb-3">';
+                            echo '<div class="card-body">';
+                            echo '<h5 class="card-title">' . $htmlCommandeNum . ($iterateurCommande + 1) . " : " . $htmlChez . $Prenom_Prod . ' ' . $Nom_Prod . ' - ' . $Adr_Uti . '</h5>';
+                            echo '<p class="card-text">' . $Desc_Statut . '</p>';
+                            if ($Id_Statut != 3 && $Id_Statut != 4) {
+                                echo '<form action="delete_commande.php" method="post" class="mb-3">';
+                                echo '<input type="hidden" name="deleteValeur" value="' . $Id_Commande . '">';
+                                echo '<button type="submit" class="btn btn-danger">' . $htmlAnnulerCommande . '</button>';
+                                echo '</form>';
+                            }
+                            echo '<button class="btn btn-primary mb-3" onclick="window.location.href=\'messagerie.php?Id_Interlocuteur=' . $idUti . '\'">' . $htmlEnvoyerMessage . '</button>';
+                            while ($iterateurProduit < $nbProduit) {
+                                $Nom_Produit = $returnQueryGetProduitCommande[$iterateurProduit]["Nom_Produit"];
+                                $Qte_Produit_Commande = $returnQueryGetProduitCommande[$iterateurProduit]["Qte_Produit_Commande"];
+                                $Nom_Unite_Prix = $returnQueryGetProduitCommande[$iterateurProduit]["Nom_Unite_Prix"];
+                                $Prix_Produit_Unitaire = $returnQueryGetProduitCommande[$iterateurProduit]["Prix_Produit_Unitaire"];
+                                echo '<p class="mb-1">- ' . $Nom_Produit . ' - ' . $Qte_Produit_Commande . ' ' . $Nom_Unite_Prix . ' * ' . $Prix_Produit_Unitaire . '€ = ' . (floatval($Prix_Produit_Unitaire) * floatval($Qte_Produit_Commande)) . '€</p>';
+                                $total += (floatval($Prix_Produit_Unitaire) * floatval($Qte_Produit_Commande));
+                                $iterateurProduit++;
+                            }
+                            echo '<div class="text-end"><strong>' . $htmlTotalDeuxPoints . $total . '€</strong></div>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
                         $iterateurCommande++;
-						if ($nbProduit>0){
-							echo '<div class="aDroite">'.$htmlTotalDeuxPoints, $total.'€</div>';
-                            echo '<br> '; 
-							echo '</div> '; 
-						}
                     }
                 }
             ?>
@@ -211,4 +202,6 @@
         </div>
     </div>
     <?php require "popups/gestion_popups.php";?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
