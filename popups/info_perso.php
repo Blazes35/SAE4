@@ -88,7 +88,7 @@ session_start();
                 </div>
                 <button type="submit" class="btn btn-primary"><?php echo htmlspecialchars($htmlModifier); ?></button>
             </form>
-                    <a href="traitements/del_acc.php"><button><?php echo htmlspecialchars($htmlSupprimerCompte); ?></button></a>
+                    <a href="traitements/del_acc.php"><button type="button" class="btn btn-danger" ><?php echo htmlspecialchars($htmlSupprimerCompte); ?></button></a>
                     <?php if ((isset($_SESSION['isProd']) and $_SESSION['isProd'])) { ?>
                         <a href="./addProfilPicture.php"><button><?php echo htmlspecialchars('ajouter une photo de profil'); ?></button></a>
                     <?php } ?>
