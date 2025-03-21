@@ -414,7 +414,7 @@ public $maxStrLenRead;
 			if (!$this->descent) $this->descent = ($yMin*$scale);
 			$this->capHeight = $this->ascent;
 		}
-		$this->stemV = 50 + intval(pow(($usWeightClass / 65.0),2));
+		$this->stemV = 50 + floatval(pow(($usWeightClass / 65.0),2));
 
 		///////////////////////////////////
 		// post - PostScript table
@@ -918,7 +918,7 @@ public $maxStrLenRead;
 				}
 				foreach($glyphToChar[$glyph] AS $char) {
 					if ($char != 0 && $char != 65535) {
- 						$w = intval(round($scale*$aw));
+ 						$w = floatval(round($scale*$aw));
 						if ($w == 0) { $w = 65535; }
 						if ($char < 196608) {
 							$this->charWidths[$char*2] = chr($w >> 8);
@@ -937,7 +937,7 @@ public $maxStrLenRead;
 			if (isset($glyphToChar[$glyph])) {
 				foreach($glyphToChar[$glyph] AS $char) {
 					if ($char != 0 && $char != 65535) {
-						$w = intval(round($scale*$aw));
+						$w = floatval(round($scale*$aw));
 						if ($w == 0) { $w = 65535; }
 						if ($char < 196608) {
 							$this->charWidths[$char*2] = chr($w >> 8);
