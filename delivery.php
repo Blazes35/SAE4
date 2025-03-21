@@ -192,10 +192,10 @@
 							$Qte_Produit_Commande=$returnQueryGetProduitCommande[$iterateurProduit]["Qte_Produit_Commande"];
 							$Nom_Unite_Prix=$returnQueryGetProduitCommande[$iterateurProduit]["Nom_Unite_Prix"];
 							$Prix_Produit_Unitaire=$returnQueryGetProduitCommande[$iterateurProduit]["Prix_Produit_Unitaire"];
-							echo "- " . $Nom_Produit ." - ".$Qte_Produit_Commande.' '.$Nom_Unite_Prix.' * '.$Prix_Produit_Unitaire.'€ = '.intval($Prix_Produit_Unitaire)*intval($Qte_Produit_Commande).'€';
-							echo "</br>";
-							$total=$total+intval($Prix_Produit_Unitaire)*intval($Qte_Produit_Commande);
-							$iterateurProduit++;
+                            echo "- " . $Nom_Produit ." - ".$Qte_Produit_Commande.' '.$Nom_Unite_Prix.' * '.$Prix_Produit_Unitaire.'€ = '.(floatval($Prix_Produit_Unitaire) * floatval($Qte_Produit_Commande)).'€';
+                            echo "</br>";
+                            $total = $total + (floatval($Prix_Produit_Unitaire) * floatval($Qte_Produit_Commande));
+                            $iterateurProduit++;
 						}
 
 						if ($nbProduit>0){
