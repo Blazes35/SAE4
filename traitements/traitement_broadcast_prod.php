@@ -13,9 +13,6 @@ if (isset($_SESSION["Id_Uti"]) && isset($message)) {
     $db->query('CALL broadcast_Producteur(' . $_SESSION["Id_Uti"] . ', ' . $message . ');');
     header("Location: ../messagerie.php");
 } else {
-    echo "error";
-    echo $message;
-    var_dump(isset($_SESSION["Id_Uti"]));
-    var_dump(isset($message));
+    echo"";
 }
 ?>

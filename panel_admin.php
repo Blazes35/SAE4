@@ -86,6 +86,9 @@ if (isset($_POST["typeCategorie"]) == true) {
             if ((count($result) > 0)) {
                 echo "<label>- producteurs :</label><br>";
                 foreach ($result as $row) {
+                    if($row["Mail_Uti"] == "deleted".$row["Id_Uti"]){
+                        continue;
+                    }
                     echo '<form method="post" action="traitements/del_acc.php" class="squarePanelAdmin">
                                         <input type="submit" name="submit" id="submit" value="' . $htmlSupprimerCompte . '"><br>
                                         <input type="hidden" name="Id_Uti" value="' . $row["Id_Uti"] . '">';

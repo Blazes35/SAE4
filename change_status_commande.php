@@ -2,8 +2,6 @@
 require_once "./loadenv.php";
 loadEnv();
 $db=dbConnect();
-      var_dump($_POST);
-
       $Id_Statut=htmlspecialchars($_POST["categorie"]);
       $Id_Commande=htmlspecialchars($_POST["idCommande"]);
 

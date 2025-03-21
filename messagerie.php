@@ -3,6 +3,7 @@
 <?php
 require "language.php";
 session_start();
+
 ?>
 <head>
     <title><?php echo $htmlMarque; ?></title>
@@ -70,8 +71,21 @@ session_start();
         </div>
         <div class="contenuPage">
             <div class="interlocuteur"
-                <?php if (!isset($_GET['Id_Interlocuteur'])) {
+                <?php
+                if (!isset($_GET['Id_Interlocuteur'])) {
                     echo 'disabled';
+                } else {
+                    // variable utilisée plusieurs fois par la suite
+                    $Id_Utilisateur = htmlspecialchars($_GET["Id_Interlocuteur"]);
+                    $stmt = $db->prepare("SELECT Mail_Uti, UTILISATEUR.Id_Uti FROM UTILISATEUR WHERE Id_Uti = :Id_Uti");
+                    $stmt->bindParam(':Id_Uti', $Id_Utilisateur);
+                    $stmt->execute();
+                    $returnQueryGetMail = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if ($returnQueryGetMail["Mail_Uti"] == "deleted" . $Id_Utilisateur) {
+                        // Si le producteur a été supprimé, on redirige vers la page d'accueil
+                        header('Location: index.php');
+                    }
+
                 } ?>
             >
                 <?php

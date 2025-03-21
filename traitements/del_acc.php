@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -13,7 +10,7 @@ $db = dbConnect();
 if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
     ?>
     <script>
-        alert("Votre compte a bien été supprimé");
+        alert("Le compte a bien été supprimé");
     </script>
     <?php
     if (isset($_POST["Id_Uti"])) {
@@ -25,18 +22,13 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
         $delParAdmin = false;
     }
 
-    $isProducteur = $db->prepare('CALL isProducteur(:utilisateur);');
-
     $isProducteur = $db->prepare('CALL isProducteur(:utilisateur)');
     $isProducteur->bindParam(':utilisateur', $utilisateur, PDO::PARAM_STR);
     $isProducteur->execute();
     $returnIsProducteur = $isProducteur->fetchAll(PDO::FETCH_ASSOC);
     $reponse = $returnIsProducteur[0]["result"];
-    //var_dump($reponse);
-
 
     if ($reponse == NULL) {
-        //echo 'non producteur';
         $db = dbConnect();
         $queryGetProduitCommande = $db->prepare('SELECT Id_Produit, Qte_Produit_Commande FROM produits_commandes WHERE Id_Uti = :utilisateur;');
         $queryGetProduitCommande->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
@@ -54,14 +46,8 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
             $bindUpdateProduit->bindParam(':Id_Produit', $Id_Produit, PDO::PARAM_INT);
             $bindUpdateProduit->execute();
 
-            //echo $updateProduit;
-//            $test = $db->prepare(('DELETE FROM CONTENU WHERE Id_Produit= :Id_Produit;'));
-//            $test->bindParam(":Id_Produit", $Id_Produit, PDO::PARAM_STR);
-//            $test->execute();
-
             $iterateurProduit++;
         }
-
 
         $test = $db->prepare('UPDATE COMMANDE SET Id_Statut=3 WHERE Id_Uti= :utilisateur AND Id_Statut<>4;');
         $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
@@ -71,9 +57,14 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
         $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
         $test->execute();
 
-//        $test = $db->prepare('DELETE FROM UTILISATEUR WHERE Id_Uti=:utilisateur;');
-//        $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
-//        $test->execute();
+
+        $updateMailUtilisateur = $db->prepare(('UPDATE UTILISATEUR SET Mail_Uti="deleted'.$utilisateur.'" WHERE Id_Uti=:utilisateur;'));
+        $updateMailUtilisateur->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
+        $updateMailUtilisateur->execute();
+
+        $delUtilisateur = $db->prepare(('DELETE FROM UTILISATEUR WHERE Id_Uti=:utilisateur;'));
+        $delUtilisateur->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
+        $delUtilisateur->execute();
     } else {
         //echo ' producteur';
         $db = dbConnect();
@@ -93,22 +84,17 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
         $queryGetProduitCommande->execute();
         $returnQueryGetProduitCommande = $queryGetProduitCommande->fetchAll(PDO::FETCH_ASSOC);
         $iterateurProduit = 0;
-        //var_dump($returnQueryGetProduitCommande);
         $nbProduit = count($returnQueryGetProduitCommande);
-        while ($iterateurProduit < $nbProduit) {
-            $Id_Produit = $returnQueryGetProduitCommande[$iterateurProduit]["Id_Produit"];
-            //echo $updateProduit;
-            //echo $Id_Produit;
-//            $delContenu = $db->prepare(('UPDATE CONTENU SET Id_Statut=2 WHERE Id_Produit=:Id_Produit AND Id_Statut<>4;'));
-//            $delContenu->bindParam(":Id_Produit", $Id_Produit, PDO::PARAM_STR);
-//            $delContenu->execute();
-
-            $delProduit = $db->prepare(('DELETE FROM PRODUIT WHERE Id_Produit=:Id_Produit;'));
-            $delProduit->bindParam(":Id_Produit", $Id_Produit, PDO::PARAM_STR);
-            $delProduit->execute();
-
-            $iterateurProduit++;
-        }
+//        while ($iterateurProduit < $nbProduit) {
+//            $Id_Produit = $returnQueryGetProduitCommande[$iterateurProduit]["Id_Produit"];
+//
+//
+//            $delProduit = $db->prepare(('DELETE FROM PRODUIT WHERE Id_Produit=:Id_Produit;'));
+//            $delProduit->bindParam(":Id_Produit", $Id_Produit, PDO::PARAM_STR);
+//            $delProduit->execute();
+//
+//            $iterateurProduit++;
+//        }
         $test = $db->prepare('UPDATE COMMANDE SET Id_Statut=3 WHERE Id_Uti= :utilisateur AND Id_Statut<>4;');
         $test->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
         $test->execute();
@@ -116,12 +102,14 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
         $delMessage = $db->prepare(('DELETE FROM MESSAGE WHERE Emetteur= :utilisateur OR Destinataire= :utilisateur;'));
         $delMessage->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
         $delMessage->execute();
-        $delProducteur = $db->prepare(('DELETE FROM PRODUCTEUR WHERE Id_Uti=:utilisateur;'));
-        $delProducteur->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
-        $delProducteur->execute();
-        $delUtilisateur = $db->prepare(('DELETE FROM UTILISATEUR WHERE Id_Uti=:utilisateur;'));
-        $delUtilisateur->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
-        $delUtilisateur->execute();
+
+//        $delProducteur = $db->prepare(('DELETE FROM PRODUCTEUR WHERE Id_Uti=:utilisateur;'));
+//        $delProducteur->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
+//        $delProducteur->execute();
+
+        $updateMailUtilisateur = $db->prepare(('UPDATE UTILISATEUR SET Mail_Uti="deleted'.$utilisateur.'" WHERE Id_Uti=:utilisateur;'));
+        $updateMailUtilisateur->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
+        $updateMailUtilisateur->execute();
 
     }
 
@@ -130,6 +118,7 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
     } else {
         header('Location: ../panel_admin.php');
     }
+//    header("Location: ../index.php");
 } else {
     ?>
     <!DOCTYPE html>
@@ -145,6 +134,9 @@ if (isset($_POST["confirm_delete"]) && $_POST["confirm_delete"] == "oui") {
             <p>Voulez-vous vraiment supprimer votre compte</p>
             <input type="hidden" name="confirm_delete" value="oui">
             <button type="submit" class="delete-btn">Oui, supprimer mon compte</button>
+            <?php if(isset($_POST["Id_Uti"])){
+                echo '<input type="hidden" name="Id_Uti" value="' . htmlspecialchars($_POST["Id_Uti"]) . '">';
+            }?>
         </form>
         <form method="get" action="../index.php">
             <button type="submit" class="home-btn">Non, retourner à l'accueil</button>

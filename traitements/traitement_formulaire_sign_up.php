@@ -59,7 +59,6 @@ if ($nb == 0) {
     $reponse = $returnIsProducteur[0]["result"];
     if ($reponse != NULL) {
         $_SESSION["isProd"] = true;
-        //var_dump($_SESSION);
     } else {
         $_SESSION["isProd"] = false;
     }

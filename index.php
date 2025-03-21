@@ -22,7 +22,6 @@
 </head>
 <body>
 <?php
-//var_dump($_SESSION);
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -34,7 +33,6 @@ $tri = isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : $tri = "nombreDePr
 if (isset($_SESSION["language"]) == false) {
     $_SESSION["language"] = "fr";
 }
-//            die("test");
 
 function latLongGps($url) {
     try {
@@ -269,7 +267,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
 
                         // Prepare the appropriate SQL query based on category
                         if ($_GET["categorie"] == "Tout") {
-                            $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
+                            $requete = 'SELECT UTILISATEUR.Mail_Uti, UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
                         UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) as ProduitCount
                         FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti
                         LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod=PRODUIT.Id_Prod
@@ -281,7 +279,7 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                             $profession = '%';
                             $stmt->bindParam(':profession', $profession);
                         } else {
-                            $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
+                            $requete = 'SELECT UTILISATEUR.Mail_Uti, UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, 
                         UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) as ProduitCount
                         FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti
                         LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod=PRODUIT.Id_Prod
@@ -351,6 +349,9 @@ function distance($lat1, $lng1, $lat2, $lng2, $miles = false)
                         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         if (count($results) > 0) {
                             foreach ($results as $row) {
+                                if ($row["Mail_Uti"]== "deleted" . $row["Id_Uti"]) {
+                                    continue;
+                                }
                                 if ($rayon >= 100) {
                                     echo "<div class='card' style='width: 18rem;'>";
                                     echo '<img src="img_producteur/' . htmlspecialchars($row["Id_Prod"]) . '.png" class="card-img-top" alt="' . htmlspecialchars($htmlImageUtilisateur) . '">';

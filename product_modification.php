@@ -26,7 +26,6 @@
           $queryGetProducts->bindParam(':Id_Produit_Update', $Id_Produit_Update, PDO::PARAM_INT);
           $queryGetProducts->execute();
           $returnQueryGetProducts = $queryGetProducts->fetchAll(PDO::FETCH_ASSOC);
-          //var_dump($returnQueryGetProducts);
           $IdProd = $returnQueryGetProducts[0]["Id_Prod"];
           $Nom_Produit = $returnQueryGetProducts[0]["Nom_Produit"];
           $Id_Type_Produit = $returnQueryGetProducts[0]["Id_Type_Produit"];
@@ -34,7 +33,6 @@
           $Id_Unite_Stock = $returnQueryGetProducts[0]["Id_Unite_Stock"];
           $Prix_Produit_Unitaire = $returnQueryGetProducts[0]["Prix_Produit_Unitaire"];
           $Id_Unite_Prix = $returnQueryGetProducts[0]["Id_Unite_Prix"];
-          //var_dump($Id_Type_Produit);
         ?>
     <div class="customContainer">
         <div class="leftColumn">

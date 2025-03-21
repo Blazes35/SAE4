@@ -3,7 +3,6 @@ require_once "./loadenv.php";
 loadEnv();
 $db=dbConnect();
 
-    //var_dump($_POST);
     $Id_Produit = htmlspecialchars($_POST["IdProductAModifier"]);
     $Nom_Produit = htmlspecialchars($_POST["nomProduit"]);
     $Categorie = htmlspecialchars($_POST["categorie"]);
